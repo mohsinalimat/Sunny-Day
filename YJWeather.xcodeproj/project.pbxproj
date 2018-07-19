@@ -8,22 +8,70 @@
 
 /* Begin PBXBuildFile section */
 		1015EC7720A9CACC0023A9C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1015EC7620A9CACC0023A9C2 /* AppDelegate.swift */; };
-		1015EC7920A9CACC0023A9C2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1015EC7820A9CACC0023A9C2 /* ViewController.swift */; };
 		1015EC7C20A9CACC0023A9C2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1015EC7A20A9CACC0023A9C2 /* Main.storyboard */; };
 		1015EC7F20A9CACC0023A9C2 /* YJWeather.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1015EC7D20A9CACC0023A9C2 /* YJWeather.xcdatamodeld */; };
-		1015EC8120A9CACE0023A9C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1015EC8020A9CACE0023A9C2 /* Assets.xcassets */; };
 		1015EC8420A9CACE0023A9C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1015EC8220A9CACE0023A9C2 /* LaunchScreen.storyboard */; };
+		1015EC8E20A9D1D20023A9C2 /* CoordinateTransformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1015EC8D20A9D1D20023A9C2 /* CoordinateTransformation.swift */; };
+		1015EC9120A9D20B0023A9C2 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1015EC9020A9D20B0023A9C2 /* WeatherData.swift */; };
+		1015EC9320A9D2160023A9C2 /* FineDustData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1015EC9220A9D2160023A9C2 /* FineDustData.swift */; };
+		1015EC9620A9D24E0023A9C2 /* LocationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1015EC9520A9D24E0023A9C2 /* LocationData.swift */; };
+		1015EC9820A9D2560023A9C2 /* LocationDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1015EC9720A9D2560023A9C2 /* LocationDAO.swift */; };
+		1015EC9A20A9D2630023A9C2 /* UmdData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1015EC9920A9D2630023A9C2 /* UmdData.swift */; };
+		1015EC9C20A9D2720023A9C2 /* UmdDataList.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 1015EC9B20A9D2720023A9C2 /* UmdDataList.rtf */; };
+		1015EC9F20A9D2EB0023A9C2 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1015EC9E20A9D2EB0023A9C2 /* API.swift */; };
+		1015ECA220A9D3040023A9C2 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1015ECA120A9D3040023A9C2 /* Utils.swift */; };
+		1015ECA420A9D30C0023A9C2 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1015ECA320A9D30C0023A9C2 /* Reachability.swift */; };
+		1015ECA820A9D5830023A9C2 /* LodingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1015ECA720A9D5830023A9C2 /* LodingViewController.swift */; };
+		1015ECAA20A9D59D0023A9C2 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1015ECA920A9D59D0023A9C2 /* MainViewController.swift */; };
+		1015ECAC20A9D5B40023A9C2 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1015ECAB20A9D5B40023A9C2 /* SearchViewController.swift */; };
+		1015ECAE20A9D5CA0023A9C2 /* WeatherInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1015ECAD20A9D5CA0023A9C2 /* WeatherInfoCell.swift */; };
+		1015ECB020A9D5D80023A9C2 /* WeatherForecastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1015ECAF20A9D5D80023A9C2 /* WeatherForecastCell.swift */; };
+		1015ECB220A9D5E10023A9C2 /* AirPollutionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1015ECB120A9D5E10023A9C2 /* AirPollutionCell.swift */; };
+		1015ECDE20A9DD1F0023A9C2 /* NanumSquareRoundOTFB.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1015ECC320A9D62B0023A9C2 /* NanumSquareRoundOTFB.otf */; };
+		1015ECDF20A9DD230023A9C2 /* NanumSquareRoundOTFEB.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1015ECC420A9D62B0023A9C2 /* NanumSquareRoundOTFEB.otf */; };
+		1015ECE020A9DD250023A9C2 /* NanumSquareRoundOTFL.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1015ECC920A9D62C0023A9C2 /* NanumSquareRoundOTFL.otf */; };
+		1015ECE120A9DD270023A9C2 /* NanumSquareRoundOTFR.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1015ECC520A9D62B0023A9C2 /* NanumSquareRoundOTFR.otf */; };
+		1067B83B20AAD1DA005962EE /* Tutorial.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1067B83A20AAD1DA005962EE /* Tutorial.storyboard */; };
+		1067B83D20AB21AB005962EE /* TutorialContentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067B83C20AB21AB005962EE /* TutorialContentsViewController.swift */; };
+		1067B83F20AB2249005962EE /* TutorialMasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067B83E20AB2249005962EE /* TutorialMasterViewController.swift */; };
+		10B9933B20ABEB2500340BDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10B9933A20ABEB2400340BDD /* Assets.xcassets */; };
+		D652827C9383CDC060B9B376 /* Pods_YJWeather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C77538BCB050A45F5E09B001 /* Pods_YJWeather.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1015EC7320A9CACC0023A9C2 /* YJWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YJWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1015EC7620A9CACC0023A9C2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1015EC7820A9CACC0023A9C2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1015EC7B20A9CACC0023A9C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1015EC7E20A9CACC0023A9C2 /* YJWeather.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = YJWeather.xcdatamodel; sourceTree = "<group>"; };
-		1015EC8020A9CACE0023A9C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1015EC8320A9CACE0023A9C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1015EC8520A9CACE0023A9C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1015EC8D20A9D1D20023A9C2 /* CoordinateTransformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateTransformation.swift; sourceTree = "<group>"; };
+		1015EC9020A9D20B0023A9C2 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
+		1015EC9220A9D2160023A9C2 /* FineDustData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FineDustData.swift; sourceTree = "<group>"; };
+		1015EC9520A9D24E0023A9C2 /* LocationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationData.swift; sourceTree = "<group>"; };
+		1015EC9720A9D2560023A9C2 /* LocationDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDAO.swift; sourceTree = "<group>"; };
+		1015EC9920A9D2630023A9C2 /* UmdData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UmdData.swift; sourceTree = "<group>"; };
+		1015EC9B20A9D2720023A9C2 /* UmdDataList.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = UmdDataList.rtf; sourceTree = "<group>"; };
+		1015EC9E20A9D2EB0023A9C2 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		1015ECA120A9D3040023A9C2 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		1015ECA320A9D30C0023A9C2 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		1015ECA720A9D5830023A9C2 /* LodingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LodingViewController.swift; sourceTree = "<group>"; };
+		1015ECA920A9D59D0023A9C2 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		1015ECAB20A9D5B40023A9C2 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		1015ECAD20A9D5CA0023A9C2 /* WeatherInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherInfoCell.swift; sourceTree = "<group>"; };
+		1015ECAF20A9D5D80023A9C2 /* WeatherForecastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherForecastCell.swift; sourceTree = "<group>"; };
+		1015ECB120A9D5E10023A9C2 /* AirPollutionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPollutionCell.swift; sourceTree = "<group>"; };
+		1015ECC320A9D62B0023A9C2 /* NanumSquareRoundOTFB.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareRoundOTFB.otf; sourceTree = "<group>"; };
+		1015ECC420A9D62B0023A9C2 /* NanumSquareRoundOTFEB.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareRoundOTFEB.otf; sourceTree = "<group>"; };
+		1015ECC520A9D62B0023A9C2 /* NanumSquareRoundOTFR.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareRoundOTFR.otf; sourceTree = "<group>"; };
+		1015ECC920A9D62C0023A9C2 /* NanumSquareRoundOTFL.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareRoundOTFL.otf; sourceTree = "<group>"; };
+		1067B83A20AAD1DA005962EE /* Tutorial.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tutorial.storyboard; sourceTree = "<group>"; };
+		1067B83C20AB21AB005962EE /* TutorialContentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialContentsViewController.swift; sourceTree = "<group>"; };
+		1067B83E20AB2249005962EE /* TutorialMasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialMasterViewController.swift; sourceTree = "<group>"; };
+		10B9933A20ABEB2400340BDD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9C49D7EA4B421AE8962FCE78 /* Pods-YJWeather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YJWeather.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YJWeather/Pods-YJWeather.debug.xcconfig"; sourceTree = "<group>"; };
+		B99FA7601E2106227ED22DC5 /* Pods-YJWeather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YJWeather.release.xcconfig"; path = "Pods/Target Support Files/Pods-YJWeather/Pods-YJWeather.release.xcconfig"; sourceTree = "<group>"; };
+		C77538BCB050A45F5E09B001 /* Pods_YJWeather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YJWeather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D652827C9383CDC060B9B376 /* Pods_YJWeather.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +91,8 @@
 			children = (
 				1015EC7520A9CACC0023A9C2 /* YJWeather */,
 				1015EC7420A9CACC0023A9C2 /* Products */,
+				9903AF3A93C9875AECD5F42B /* Pods */,
+				553C70447A2E9F8276D4E90A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -57,14 +108,133 @@
 			isa = PBXGroup;
 			children = (
 				1015EC7620A9CACC0023A9C2 /* AppDelegate.swift */,
-				1015EC7820A9CACC0023A9C2 /* ViewController.swift */,
+				1015EC8B20A9D18A0023A9C2 /* Model */,
+				1015ECA520A9D32E0023A9C2 /* View Controller */,
+				1015ECA620A9D3400023A9C2 /* View */,
+				1015ECB320A9D6080023A9C2 /* Font */,
 				1015EC7A20A9CACC0023A9C2 /* Main.storyboard */,
-				1015EC8020A9CACE0023A9C2 /* Assets.xcassets */,
 				1015EC8220A9CACE0023A9C2 /* LaunchScreen.storyboard */,
 				1015EC8520A9CACE0023A9C2 /* Info.plist */,
 				1015EC7D20A9CACC0023A9C2 /* YJWeather.xcdatamodeld */,
+				10B9933A20ABEB2400340BDD /* Assets.xcassets */,
 			);
 			path = YJWeather;
+			sourceTree = "<group>";
+		};
+		1015EC8B20A9D18A0023A9C2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1015ECA020A9D2F90023A9C2 /* Utils */,
+				1015EC9D20A9D2E10023A9C2 /* API */,
+				1015EC9420A9D21C0023A9C2 /* Location Data */,
+				1015EC8F20A9D1E70023A9C2 /* Weather, FineDust Data */,
+				1015EC8C20A9D19A0023A9C2 /* Coordinate Transformation */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		1015EC8C20A9D19A0023A9C2 /* Coordinate Transformation */ = {
+			isa = PBXGroup;
+			children = (
+				1015EC8D20A9D1D20023A9C2 /* CoordinateTransformation.swift */,
+			);
+			path = "Coordinate Transformation";
+			sourceTree = "<group>";
+		};
+		1015EC8F20A9D1E70023A9C2 /* Weather, FineDust Data */ = {
+			isa = PBXGroup;
+			children = (
+				1015EC9020A9D20B0023A9C2 /* WeatherData.swift */,
+				1015EC9220A9D2160023A9C2 /* FineDustData.swift */,
+			);
+			path = "Weather, FineDust Data";
+			sourceTree = "<group>";
+		};
+		1015EC9420A9D21C0023A9C2 /* Location Data */ = {
+			isa = PBXGroup;
+			children = (
+				1015EC9520A9D24E0023A9C2 /* LocationData.swift */,
+				1015EC9720A9D2560023A9C2 /* LocationDAO.swift */,
+				1015EC9920A9D2630023A9C2 /* UmdData.swift */,
+				1015EC9B20A9D2720023A9C2 /* UmdDataList.rtf */,
+			);
+			path = "Location Data";
+			sourceTree = "<group>";
+		};
+		1015EC9D20A9D2E10023A9C2 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				1015EC9E20A9D2EB0023A9C2 /* API.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		1015ECA020A9D2F90023A9C2 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				1015ECA120A9D3040023A9C2 /* Utils.swift */,
+				1015ECA320A9D30C0023A9C2 /* Reachability.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		1015ECA520A9D32E0023A9C2 /* View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1015ECA720A9D5830023A9C2 /* LodingViewController.swift */,
+				1015ECA920A9D59D0023A9C2 /* MainViewController.swift */,
+				1015ECAB20A9D5B40023A9C2 /* SearchViewController.swift */,
+				1067B83920AAD1C4005962EE /* Tutorial */,
+			);
+			path = "View Controller";
+			sourceTree = "<group>";
+		};
+		1015ECA620A9D3400023A9C2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1015ECAD20A9D5CA0023A9C2 /* WeatherInfoCell.swift */,
+				1015ECAF20A9D5D80023A9C2 /* WeatherForecastCell.swift */,
+				1015ECB120A9D5E10023A9C2 /* AirPollutionCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1015ECB320A9D6080023A9C2 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				1015ECC320A9D62B0023A9C2 /* NanumSquareRoundOTFB.otf */,
+				1015ECC420A9D62B0023A9C2 /* NanumSquareRoundOTFEB.otf */,
+				1015ECC920A9D62C0023A9C2 /* NanumSquareRoundOTFL.otf */,
+				1015ECC520A9D62B0023A9C2 /* NanumSquareRoundOTFR.otf */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
+		1067B83920AAD1C4005962EE /* Tutorial */ = {
+			isa = PBXGroup;
+			children = (
+				1067B83E20AB2249005962EE /* TutorialMasterViewController.swift */,
+				1067B83C20AB21AB005962EE /* TutorialContentsViewController.swift */,
+				1067B83A20AAD1DA005962EE /* Tutorial.storyboard */,
+			);
+			path = Tutorial;
+			sourceTree = "<group>";
+		};
+		553C70447A2E9F8276D4E90A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C77538BCB050A45F5E09B001 /* Pods_YJWeather.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9903AF3A93C9875AECD5F42B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9C49D7EA4B421AE8962FCE78 /* Pods-YJWeather.debug.xcconfig */,
+				B99FA7601E2106227ED22DC5 /* Pods-YJWeather.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +244,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1015EC8820A9CACE0023A9C2 /* Build configuration list for PBXNativeTarget "YJWeather" */;
 			buildPhases = (
+				41E38CFA58EF3EBA70D269C5 /* [CP] Check Pods Manifest.lock */,
 				1015EC6F20A9CACC0023A9C2 /* Sources */,
 				1015EC7020A9CACC0023A9C2 /* Frameworks */,
 				1015EC7120A9CACC0023A9C2 /* Resources */,
+				6FFF95FCE38A8AF10005A1F2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -126,21 +298,82 @@
 			buildActionMask = 2147483647;
 			files = (
 				1015EC8420A9CACE0023A9C2 /* LaunchScreen.storyboard in Resources */,
-				1015EC8120A9CACE0023A9C2 /* Assets.xcassets in Resources */,
+				1015EC9C20A9D2720023A9C2 /* UmdDataList.rtf in Resources */,
+				1015ECDF20A9DD230023A9C2 /* NanumSquareRoundOTFEB.otf in Resources */,
+				1015ECE120A9DD270023A9C2 /* NanumSquareRoundOTFR.otf in Resources */,
 				1015EC7C20A9CACC0023A9C2 /* Main.storyboard in Resources */,
+				10B9933B20ABEB2500340BDD /* Assets.xcassets in Resources */,
+				1015ECDE20A9DD1F0023A9C2 /* NanumSquareRoundOTFB.otf in Resources */,
+				1015ECE020A9DD250023A9C2 /* NanumSquareRoundOTFL.otf in Resources */,
+				1067B83B20AAD1DA005962EE /* Tutorial.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		41E38CFA58EF3EBA70D269C5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-YJWeather-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6FFF95FCE38A8AF10005A1F2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-YJWeather/Pods-YJWeather-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-YJWeather/Pods-YJWeather-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1015EC6F20A9CACC0023A9C2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1015EC7920A9CACC0023A9C2 /* ViewController.swift in Sources */,
+				1067B83F20AB2249005962EE /* TutorialMasterViewController.swift in Sources */,
+				1015EC8E20A9D1D20023A9C2 /* CoordinateTransformation.swift in Sources */,
+				1015ECAA20A9D59D0023A9C2 /* MainViewController.swift in Sources */,
+				1067B83D20AB21AB005962EE /* TutorialContentsViewController.swift in Sources */,
+				1015ECA820A9D5830023A9C2 /* LodingViewController.swift in Sources */,
+				1015EC9820A9D2560023A9C2 /* LocationDAO.swift in Sources */,
+				1015EC9120A9D20B0023A9C2 /* WeatherData.swift in Sources */,
 				1015EC7720A9CACC0023A9C2 /* AppDelegate.swift in Sources */,
+				1015EC9620A9D24E0023A9C2 /* LocationData.swift in Sources */,
+				1015ECA220A9D3040023A9C2 /* Utils.swift in Sources */,
+				1015ECAE20A9D5CA0023A9C2 /* WeatherInfoCell.swift in Sources */,
+				1015ECAC20A9D5B40023A9C2 /* SearchViewController.swift in Sources */,
+				1015ECB220A9D5E10023A9C2 /* AirPollutionCell.swift in Sources */,
+				1015EC9A20A9D2630023A9C2 /* UmdData.swift in Sources */,
+				1015ECB020A9D5D80023A9C2 /* WeatherForecastCell.swift in Sources */,
+				1015ECA420A9D30C0023A9C2 /* Reachability.swift in Sources */,
 				1015EC7F20A9CACC0023A9C2 /* YJWeather.xcdatamodeld in Sources */,
+				1015EC9F20A9D2EB0023A9C2 /* API.swift in Sources */,
+				1015EC9320A9D2160023A9C2 /* FineDustData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,37 +515,41 @@
 		};
 		1015EC8920A9CACE0023A9C2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9C49D7EA4B421AE8962FCE78 /* Pods-YJWeather.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BVVM4ZGCE2;
 				INFOPLIST_FILE = YJWeather/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.0junchoi.YJWeather;
+				PRODUCT_BUNDLE_IDENTIFIER = com.0junchoi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		1015EC8A20A9CACE0023A9C2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B99FA7601E2106227ED22DC5 /* Pods-YJWeather.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = BVVM4ZGCE2;
 				INFOPLIST_FILE = YJWeather/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.0junchoi.YJWeather;
+				PRODUCT_BUNDLE_IDENTIFIER = com.0junchoi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

@@ -11,9 +11,11 @@ import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    var locationList = [LocationData]() // 위치 데이터를 저장할 배열 변수
+    var umdDataList = [UmdData]()   // 기본 읍면동 데이터 리스트
 
     var window: UIWindow?
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
