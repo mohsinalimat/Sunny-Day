@@ -2,7 +2,7 @@
 > ‘Sunny Day’는 실시간 날씨, 대기오염 정보 그리고 날씨 예보를 제공하는 애플리케이션입니다. 자주 확인하는 정보만으로 깔끔하게 구현하였습니다.
 
 
-![Sunny Day]()
+![Sunny Day](https://github.com/0jun0815/YJWeather/blob/master/Images/Sunny%20Day.png)
 
 
 ### 기능
