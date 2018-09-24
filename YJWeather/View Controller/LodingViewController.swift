@@ -81,8 +81,8 @@ class LodingViewController: UIViewController {
                     let datum = umdData.split(separator: ",")
                     let name = String(datum[0])
                     if let tmX = Double(datum[1]), let tmY = Double(datum[2]) {
-                        let umdData = UmdData(name: name, tmX: tmX, tmY: tmY)
-                        (UIApplication.shared.delegate as! AppDelegate).umdDataList.append(umdData)
+                        let umd = UmdData(name: name, tmX: tmX, tmY: tmY)
+                        (UIApplication.shared.delegate as! AppDelegate).umds.append(umd)
                     }
                 }
             } catch {

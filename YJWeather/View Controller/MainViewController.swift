@@ -24,7 +24,7 @@ class MainViewController: UIViewController {
     
     var allData = [[String: Any]]()
     
-    private var locationList = (UIApplication.shared.delegate as! AppDelegate).locationList
+    private var locations = (UIApplication.shared.delegate as! AppDelegate).locations
     private let dao = LocationDAO()
     private var datasource = [ExpandingTableViewCellContent]()
     private let manager = CLLocationManager()
@@ -146,8 +146,8 @@ class MainViewController: UIViewController {
         let loc = datasource[index].data["location"] as! String
         
         alertWithOkCancel("\(loc)을 지우시겠습니까?") {
-            self.locationList = self.dao.fetch()
-            let data = self.locationList[index - 1]
+            self.locations = self.dao.fetch()
+            let data = self.locations[index - 1]
             self.dao.delete(data)
             
             self.datasource.remove(at: index)

@@ -16,7 +16,7 @@ class SearchViewController: UIViewController {
     @IBOutlet var searchResultLabel: UILabel!
     let dao = LocationDAO()
     
-    var umdDataList = (UIApplication.shared.delegate as! AppDelegate).umdDataList
+    var umds = (UIApplication.shared.delegate as! AppDelegate).umds
     var filteredUmdData = [UmdData]()   // 검색
     
     @IBOutlet weak var coverView: UIView!
@@ -46,7 +46,7 @@ class SearchViewController: UIViewController {
     }
     
     func filterContentForSearchText(_ searchText: String) {
-        filteredUmdData = umdDataList.filter({ (umdData) -> Bool in
+        filteredUmdData = umds.filter({ (umdData) -> Bool in
             if isFiltering() {
                 return umdData.name.contains(searchText)
             } else {

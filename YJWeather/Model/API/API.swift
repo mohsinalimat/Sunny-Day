@@ -11,14 +11,14 @@ import Alamofire
 
 class API {
     // MARK: - Properties
-    var locationList = (UIApplication.shared.delegate as! AppDelegate).locationList
+    var locations = (UIApplication.shared.delegate as! AppDelegate).locations
     let dao = LocationDAO()
     // 서비스 키
     private let serviceKey: String = "서비스키"
     
     // MARK: - Initializers
     init() {
-        locationList = dao.fetch()
+        locations = dao.fetch()
     }
     
     // MARK: - API Call Methods

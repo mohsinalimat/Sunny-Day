@@ -12,7 +12,7 @@ import CoreLocation
 extension UIViewController {
     // MARK: - API 호출을 통해 데이터를 얻어온다.
     // CLLocation과 CLPlacemark를 사용하여 현재위치정보,
-    // locationList에 저장된 위치데이터정보로 데이터 딕셔너리를 얻어온다.
+    // locations에 저장된 위치데이터정보로 데이터 딕셔너리를 얻어온다.
     func getAllData(location: CLLocation, name: String, completion: @escaping (Bool, [[String: Any]]?) -> Void) {
         // 네트워크 연결 상태를 확인한다.
         if !Reachability.isConnectedToNetwork() {
@@ -52,8 +52,8 @@ extension UIViewController {
             dispatchGroup.leave()
         }
         
-        if !api.locationList.isEmpty {
-            for locationData in api.locationList {
+        if !api.locations.isEmpty {
+            for locationData in api.locations {
                 dispatchGroup.enter()
                 api.apiCall(locationData) { (isSuccess, data) in
                     if isSuccess, let data = data {
