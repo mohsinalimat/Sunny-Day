@@ -1,5 +1,5 @@
 //
-//  RequestAPIProtocol.swift
+//  RequestProtocol.swift
 //  YJWeather
 //
 //  Created by 최영준 on 2018. 9. 25..
@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol RequestAPIProtocol {
+protocol RequestProtocol {
     func createURL(_ type: URIType) -> URL?
     func request(_ data: LocationData, completion: @escaping completionHandler)
 }

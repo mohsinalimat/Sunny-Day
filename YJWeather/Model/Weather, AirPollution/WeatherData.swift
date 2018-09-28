@@ -142,7 +142,6 @@ class WeatherData {
                     hourString = "23"
                 }
             }
-            
             return (dateString, hourString + minuteString)
         }
     }

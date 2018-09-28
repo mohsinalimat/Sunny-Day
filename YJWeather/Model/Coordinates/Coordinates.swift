@@ -64,7 +64,6 @@ class Coordinates {
         sn = log(cos(slat1) / cos(slat2)) / log(tan(pi * 0.25 + slat2 * 0.5) / tan(pi * 0.25 + slat1 * 0.5))
         sf = pow(tan(pi * 0.25 + slat1 * 0.5), sn) * cos(slat1) / sn
         ro = re * sf / pow(tan(pi * 0.25 + olat * 0.5), sn)
-        
     }
     // MARK: - Custom methods
     // MARK: -

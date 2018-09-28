@@ -1,21 +1,14 @@
 //
-//  LocationData.swift
+//  LocationDAO.swift
 //  YJWeather
 //
-//  Created by 최영준 on 2018. 5. 14..
+//  Created by 최영준 on 2018. 9. 28..
 //  Copyright © 2018년 최영준. All rights reserved.
 //
 
 import UIKit
 import CoreData
 
-class LocationData {
-    var location: String?   // 위치명
-    var latitude: Double?   // 위도
-    var longitude: Double?  // 경도
-    var regdate: Date?    // 생성날짜
-    var objectID: NSManagedObjectID?    // 원본 LocationMO 객체를 참조하기 위한 속성
-}
 /// LocationData와 LocationMO 사이에 접근을 처리하는 클래스
 class LocationDAO {
     // 영구 저장소에 접근하는 context 지연 변수
@@ -36,7 +29,7 @@ class LocationDAO {
             // 읽어온 결과 배열 순회하면서 LocationData 타입으로 변환한다.
             for object in result {
                 // LocationData 객체를 생성
-                let data = LocationData()
+                var data = LocationData()
                 // LocationMO 프로퍼티 값을 LocationData의 프로퍼티로 복사한다.
                 data.location = object.location
                 data.latitude = object.latitude
@@ -92,8 +85,9 @@ class LocationDAO {
     /// 수정된 데이터를 반영하는 메서드
     func update(_ data: LocationData) {
         // objectID 값으로 수정할 관리 객체를 컨텍스트에서 찾는다.
-        guard let object = context.object(with: data.objectID!) as? LocationMO else {
-            return
+        guard let objectID = data.objectID,
+            let object = context.object(with: objectID) as? LocationMO else {
+                return
         }
         // 수정된 값을 복사한다.
         object.location = data.location
