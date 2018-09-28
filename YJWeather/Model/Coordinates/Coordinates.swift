@@ -108,7 +108,6 @@ class Coordinates {
         let n1 = semiMinorAxisA / sqrt(1 - firstEccentricty * pow(sin(phi1), 2))
         // D
         let d = (tmX - originAdditionValueY) / (n1 * originScaleFactorKo)
-        print(d, originAdditionValueY, originScaleFactorKo)
         // PHI, 위도
         let phi = (phi1 - (n1 * tan(phi1) / r1) * (pow(d, 2) / 2 - pow(d, 4) / 24 * ( 5 + 3 * t1 + 10 * c1 - 4 * pow(c1, 2) - 9 * secondEccentricty) + pow(d, 6) / 720 * (61 + 90 * t1 + 298 * c1 + 45 * pow(t1, 2) - 252 * secondEccentricty - 3 * pow(c1, 2)))) * 180 / pi // Φ, PHI
         // LAMDA, 경도
