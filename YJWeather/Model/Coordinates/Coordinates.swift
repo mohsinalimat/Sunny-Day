@@ -118,7 +118,7 @@ class Coordinates {
     }
     /// 경위도 좌표 -> 격자 nx, ny 좌표 변환
     func convertToGrid(latitude: Double, longitude: Double) -> (Int, Int) {
-        let ra = re * sf / pow(tan(PI * 0.25 + latitude * degrad * 0.5), sn)
+        let ra = re * sf / pow(tan(pi * 0.25 + latitude * degrad * 0.5), sn)
         var theta = longitude * degrad - olon
         if theta > pi {
             theta -= 2.0 * pi

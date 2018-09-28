@@ -21,9 +21,10 @@ typealias completionHandler = (Bool, Any?) -> Void
 class RequestAPI: RequestAPIProtocol {
     // MARK: - Properties
     // MARK: -
-    private let serviceKey = "G0YMvvFG8%2FPUuXzmKHgKxTWhv1fkmYJHyE2chPMURldB%2Fml97PU1Ff%2BL4QJE4CgxPPyIaPoLwiXrtYJvMa2vAw%3D%3D"
+    private let serviceKey = "서비스키"
     private let weather = Weather()
     private let airPollution = AirPollution()
+    private let coordinates = Coordinates()
     // MARK: - Protocol methods
     // MARK: -
     /// URL을 생성하는 메서드
@@ -106,7 +107,7 @@ class RequestAPI: RequestAPIProtocol {
         guard let url = createURL(.forecastGrib) else {
             return
         }
-        let (nx, ny) = CoordinateTransformation.convertLatLonToGrid(latitude: latitude, longitude: longitude)
+        let (nx, ny) = coordinates.convertToGrid(latitude: latitude, longitude: longitude)
         let (baseDate, baseTime) = weather.getBaseDateTime(.realtime)
         let parameters: Parameters = [
             "base_date": baseDate,
@@ -129,7 +130,7 @@ class RequestAPI: RequestAPIProtocol {
         guard let url = createURL(.forecastSpaceData) else {
             return
         }
-        let (nx, ny) = CoordinateTransformation.convertLatLonToGrid(latitude: latitude, longitude: longitude)
+        let (nx, ny) = coordinates.convertToGrid(latitude: latitude, longitude: longitude)
         let (baseDate, baseTime) = weather.getBaseDateTime(.local)
         let parameters: Parameters = [
             "base_date": baseDate,
@@ -152,7 +153,7 @@ class RequestAPI: RequestAPIProtocol {
         guard let url = createURL(.getNearbyMsrstnList) else {
             return
         }
-        let (tmX, tmY) = CoordinateTransformation.convertLatLonToPlaneRect(latitude: latitude, longitude: longitude)
+        let (tmX, tmY) = coordinates.convertToPlaneRect(latitude: latitude, longitude: longitude)
         let parameters: Parameters = [
             "tmX": tmX,
             "tmY": tmY,
