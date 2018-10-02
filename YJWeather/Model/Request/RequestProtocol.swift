@@ -8,7 +8,10 @@
 
 import Foundation
 
+typealias requestCompletionHandler = (Bool, Any?, RequestError?) -> Void
+
 protocol RequestProtocol {
     func createURL(_ type: URIType) -> URL?
-    func request(_ data: LocationData, completion: @escaping completionHandler)
+    func request(_ data: LocationData, completion: @escaping requestCompletionHandler)
+    func getTotalDataList(_ data: LocationData, completion: @escaping requestCompletionHandler)
 }
