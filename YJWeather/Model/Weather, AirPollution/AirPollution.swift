@@ -16,8 +16,8 @@ class AirPollution {
     private enum RealtimeCategoryType {
         case dataTime, mangName, so2Value, coValue, o3Value, no2Value, pm10Value, pm10Value24, pm25Value, pm25Value24, khaiValue, khaiGrade, so2Grade, coGrade, o3Grade, no2Grade, pm10Grade, pm25Grade, pm10Grade1h, pm25Grade1h
     }
-    // MARK: -
     // MARK: - Custom methods
+    // MARK: -
     func extractData(_ type: AirPollutionType, data: Any?) -> Any? {
         guard let result = data as? [String: Any],
             let list = result["list"] as? [[String: Any]] else {

@@ -24,8 +24,8 @@ class Weather {
         case tomorrow
         case dayAfterTomorrow
     }
-    // MARK: -
     // MARK: - Custom methods
+    // MARK: -
     /// API 파라미터에서 사용될 날씨 타입에 따른 baseDate, baseTime을 얻는다
     func getBaseDateTime(_ type: WeatherType) -> (String, String) {
         let date = Date()
