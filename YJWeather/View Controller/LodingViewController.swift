@@ -25,7 +25,8 @@ class LodingViewController: UIViewController {
             appNameLabel.isHidden = true
         }
     }
-    // MARK: - View Lifecycle
+    
+    // MARK: - View lifecycle
     // MARK: -
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,11 +35,14 @@ class LodingViewController: UIViewController {
         manager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
         manager.requestWhenInUseAuthorization()
         // 기기별 폰트사이즈 조정
+        /* To do */
         if UIDevice.currentIPhone == .iPhoneSE {
             appNameLabel.font = UIFont(name: "NanumSquareRoundOTFEB", size: 30)
         }
+        /* End to do */
         prepareUmdDataFromLocalFile()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // 사용자가 위치서비스 접근 허용을 거부했을 경우
@@ -57,7 +61,8 @@ class LodingViewController: UIViewController {
             self.manager.requestLocation()
         }
     }
-    // MARK: - Custom Methods
+    
+    // MARK: - Custom methods
     // MARK: -
     /// UmdDataList에서 UmdData를 추출한다
     func prepareUmdDataFromLocalFile() {
@@ -118,9 +123,11 @@ extension LodingViewController: CLLocationManagerDelegate {
             }
         }
     }
+    
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         alert("오류가 발생하였습니다.", completion: nil)
     }
+    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .denied:

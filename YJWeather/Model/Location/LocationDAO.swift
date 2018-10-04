@@ -11,11 +11,16 @@ import CoreData
 
 /// LocationData와 LocationMO 사이에 접근을 처리하는 클래스
 class LocationDAO {
+    // MARK: - Properties
+    // MARK: -
     // 영구 저장소에 접근하는 context 지연 변수
     private lazy var context: NSManagedObjectContext = {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         return appDelegate.persistentContainer.viewContext
     }()
+    
+    // MARK: - Custom methods
+    // MARK: -
     /// 저장된 데이터를 불러오는 메서드
     func fetch() -> [LocationData] {
         var locations = [LocationData]()

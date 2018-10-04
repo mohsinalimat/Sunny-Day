@@ -29,19 +29,22 @@ class SearchViewController: UIViewController {
     @IBOutlet var backButton: UIButton!
     @IBOutlet var searchResultLabel: UILabel!
     @IBOutlet weak var coverView: UIView!
-    // MARK: - View Lifecycle
+    
+    // MARK: - View lifecycle
     // MARK: -
     override func viewDidLoad() {
         super.viewDidLoad()
         backButton.addTarget(self, action: #selector(goBack(_:)), for: .touchUpInside)
         view.bringSubview(toFront: coverView)
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // 뷰 로드시 키보드, 검색 바로 시작
         searchBar.becomeFirstResponder()
     }
-    // MARK: - Custom Methods
+    
+    // MARK: - Custom methods
     // MARK: -
     /// searchBar.text 존재 유무
     func isFiltering() -> Bool {
@@ -64,14 +67,16 @@ class SearchViewController: UIViewController {
 }
 
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
-    // MARK: - UITableView Delegate, DataSoruce
+    // MARK: - UITableViewDelegate, UITableViewDataSoruce
     // MARK: -
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return isFiltering() ? filteredUmdData.count : 0
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         cell.textLabel?.font = UIFont(name: "NanumSquareRoundOTFB", size: 16)
@@ -82,6 +87,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         }
         return cell
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if isFiltering() {
             // 검색된 umdData로 LocationData를 생성한다
@@ -102,11 +108,12 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension SearchViewController: UISearchBarDelegate {
-    // MARK: - UISearchBar Delegate
+    // MARK: - UISearchBarDelegate
     // MARK: -
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
     }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
             coverView.isHidden = false

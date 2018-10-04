@@ -46,6 +46,7 @@ class Coordinates {
     private let sn: Double
     private let sf: Double
     private let ro: Double
+    
     // MARK: - Initializer
     // MARK: -
     init() {
@@ -65,6 +66,7 @@ class Coordinates {
         sf = pow(tan(pi * 0.25 + slat1 * 0.5), sn) * cos(slat1) / sn
         ro = re * sf / pow(tan(pi * 0.25 + olat * 0.5), sn)
     }
+    
     // MARK: - Custom methods
     // MARK: -
     /// 경위도 좌표 -> TM 좌표로 변환

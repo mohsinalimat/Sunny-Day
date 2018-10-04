@@ -9,10 +9,13 @@
 import UIKit
 
 extension UIView {
-    // MARK: - 애니메이션 효과
+    // MARK: - Animation effect
+    // MARK: -
+    /* To do */
     func degreesToRadian(_ degrees: CGFloat) -> CGFloat {
         return (degrees * CGFloat(Double.pi)) / 180.0
     }
+    
     func startShakeAnimation() {
         let degrees: CGFloat = 5
         let option = [
@@ -45,4 +48,5 @@ extension UIView {
         layer.removeAllAnimations()
         transform = CGAffineTransform.identity
     }
+    /* End to do */
 }

@@ -9,6 +9,7 @@
 import UIKit
 
 extension UIViewController {
+    /// alert 편의 메서드
     func alert(_ message: String, completion: (() -> Void)?) {
         // 메인 스레드에서 실행되도록
         DispatchQueue.main.async {
@@ -16,6 +17,7 @@ extension UIViewController {
             self.present(alert, animated: false)
         }
     }
+    // alert ok, cancel 버튼을 포함한 편의 메서드
     func alertWithOkCancel(_ message: String, completion: (() -> Void)?) {
         // 메인 스레드에서 실행되도록
         DispatchQueue.main.async {

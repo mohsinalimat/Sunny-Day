@@ -11,11 +11,9 @@ import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
     var locations = [LocationData]() // 위치 데이터를 저장할 배열 변수
     var umds = [UmdData]()   // 기본 읍면동 데이터 리스트
     var totalDataList = [TotalData]() // 변환된 날씨, 미세먼지, 위치 관련 데이터 리스트
-
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {

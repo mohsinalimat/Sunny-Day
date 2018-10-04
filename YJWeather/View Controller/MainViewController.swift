@@ -38,7 +38,8 @@ class MainViewController: UIViewController {
         }
     }
     @IBOutlet var indicatorView: UIActivityIndicatorView!
-    // MARK: - View Lifecycle
+    
+    // MARK: - View lifecycle
     // MARK: -
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,11 +70,12 @@ class MainViewController: UIViewController {
             }
         }
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // 첫 시작시, 튜토리얼 뷰 컨트롤러로 전환
         if !UserDefaults.standard.bool(forKey: "TUTORIAL"),
-            let tutorialVC = UIStoryboard(name: "Tutorial", bundle: nil).instantiateViewController(withIdentifier: "MasterVC") as? TutorialMasterViewController {
+            let tutorialVC = UIStoryboard(name: "Tutorial", bundle: Bundle.main).instantiateViewController(withIdentifier: "MasterVC") as? TutorialMasterViewController {
             present(tutorialVC, animated: true, completion: nil)
         }
         // 데이터가 추가되었거나 totalDataList가 비었다면 데이터를 리로드한다
@@ -81,7 +83,8 @@ class MainViewController: UIViewController {
             reloadData()
         }
     }
-    // MARK: - Custom Methods
+    
+    // MARK: - Custom methods
     // MARK: -
     /// 데이터 로드 작업
     @objc func reloadData() {
@@ -191,9 +194,11 @@ extension MainViewController: CLLocationManagerDelegate {
             }
         }
     }
+    
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         alert("오류가 발생하였습니다.", completion: nil)
     }
+    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .denied:
@@ -205,11 +210,12 @@ extension MainViewController: CLLocationManagerDelegate {
 }
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
-    // MARK: - UITableView Delegate, DataSoruce
+    // MARK: - UITableViewDelegate, UITableViewDataSoruce
     // MARK: -
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return datasource.count
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let content = datasource[indexPath.row]
         if content.expanded {
@@ -217,6 +223,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         }
         return 150
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherInfoCell") as? WeatherInfoCell else {
             return UITableViewCell()
@@ -226,6 +233,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         cell.show(datasource[indexPath.row])
         return cell
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let content = datasource[indexPath.row]
         content.expanded = !content.expanded

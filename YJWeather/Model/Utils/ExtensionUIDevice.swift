@@ -18,6 +18,7 @@ extension UIDevice {
         case iPhoneSE
         case otherDevice
     }
+    /// iPhone 기기 사이즈별 변수
     class var currentIPhone: Model {
         switch self.current.name {
         case "iPhone XS Max":

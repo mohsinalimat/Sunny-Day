@@ -9,15 +9,21 @@
 import Foundation
 
 class AirPollution {
+    // MARK: - Custom enumerations
+    // MARK: -
+    /// 대기오염 타입: 근접 측정소, 실시간 측정정보
     enum AirPollutionType {
         case measuringStation
         case realtime
     }
+    /// 실시간 측정정보 카테고리
     private enum RealtimeCategoryType {
         case dataTime, mangName, so2Value, coValue, o3Value, no2Value, pm10Value, pm10Value24, pm25Value, pm25Value24, khaiValue, khaiGrade, so2Grade, coGrade, o3Grade, no2Grade, pm10Grade, pm25Grade, pm10Grade1h, pm25Grade1h
     }
+    
     // MARK: - Custom methods
     // MARK: -
+    /// 데이터를 추출하여 변환후 반환한다
     func extractData(_ type: AirPollutionType, data: Any?) -> Any? {
         guard let result = data as? [String: Any],
             let list = result["list"] as? [[String: Any]] else {
@@ -104,6 +110,7 @@ class AirPollution {
         }
         return airPollution
     }
+    /// 추출한 데이터를 문자열로 변환한다
     private func convertToString(_ type: RealtimeCategoryType, value: Any) -> String {
         var result = ""
         switch type {

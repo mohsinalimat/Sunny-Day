@@ -28,6 +28,7 @@ class Request: RequestProtocol {
         locations = LocationDAO().fetch()
         return locations
     }()
+    
     // MARK: - Protocol methods
     // MARK: -
     /// URL을 생성하는 메서드
@@ -158,6 +159,7 @@ class Request: RequestProtocol {
             }
         }
     }
+    
     // MARK: - Custom methods
     // MARK: -
     /// 초단기실황을 호출하는 메서드

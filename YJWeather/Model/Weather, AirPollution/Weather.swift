@@ -9,21 +9,28 @@
 import Foundation
 
 class Weather {
+    // MARK: - Custom enumerations
+    // MARK: -
+    /// 날씨 타입: 초단기실황, 동네예보
     enum WeatherType {
         case realtime, local
     }
+    /// 초단기실황 카테고리
     private enum RealtimeCategoryType: String {
         case t1h, sky, pty, rn1, reh, vec, wsd, lgt, uuu, vvv
     }
+    /// 동네예보 카테고리
     private enum LocalCategoryType: String {
         case date, time, pop, pty, r06, reh, s06, sky, t3h, tmn, tmx, uuu, vvv, wav, vec, wsd
     }
+    /// BaseDate에 사용되는 타입
     private enum DayType {
         case today
         case yesterday
         case tomorrow
         case dayAfterTomorrow
     }
+    
     // MARK: - Custom methods
     // MARK: -
     /// API 파라미터에서 사용될 날씨 타입에 따른 baseDate, baseTime을 얻는다
