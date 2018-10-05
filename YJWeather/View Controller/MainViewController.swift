@@ -74,10 +74,11 @@ class MainViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // 첫 시작시, 튜토리얼 뷰 컨트롤러로 전환
+        /*  나중에 주석 제거
         if !UserDefaults.standard.bool(forKey: "TUTORIAL"),
             let tutorialVC = UIStoryboard(name: "Tutorial", bundle: Bundle.main).instantiateViewController(withIdentifier: "MasterVC") as? TutorialMasterViewController {
             present(tutorialVC, animated: true, completion: nil)
-        }
+        }*/
         // 데이터가 추가되었거나 totalDataList가 비었다면 데이터를 리로드한다
         if MainViewController.dataAddCompletion {
             reloadData()
@@ -139,7 +140,7 @@ class MainViewController: UIViewController {
     /// 데이터를 삭제 작업(tableViewCell에 deleteButton에 전달)
     @objc private func deleteData(_ sender: UIButton) {
         let index = sender.tag
-        let location = dataSource[index].totalDataList.location
+        let location = dataSource[index].totalData.location
         alertWithOkCancel("\(location)을 지우시겠습니까?") {
             self.locations = self.locationDAO.fetch()
             // 영구 저장소에서 index에 해당하는 LocationData를 제거한다

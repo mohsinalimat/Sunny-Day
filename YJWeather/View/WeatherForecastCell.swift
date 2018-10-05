@@ -12,39 +12,14 @@ class WeatherForecastCell: UICollectionViewCell {
     // MARK: - Properties
     // MARK: -
     @IBOutlet var timeLabel: UILabel!
-    @IBOutlet var skyStatusImageView: UIImageView! {
-        didSet {
-            skyStatusImageView.image = skyStatusImageView.image?.withRenderingMode(.alwaysTemplate)
-            skyStatusImageView.tintColor = UIColor.white
-        }
-    }
-    @IBOutlet var tempImageView: UIImageView! {
-        didSet {
-            tempImageView.image = tempImageView.image?.withRenderingMode(.alwaysTemplate)
-            tempImageView.tintColor = UIColor.white
-        }
-    }
+    @IBOutlet var skyStatusImageView: UIImageView!
+    @IBOutlet var tempImageView: UIImageView!
     @IBOutlet var tempLabel: UILabel!
-    @IBOutlet var popImageView: UIImageView! {
-        didSet {
-            popImageView.image = popImageView.image?.withRenderingMode(.alwaysTemplate)
-            popImageView.tintColor = UIColor.white
-        }
-    }
+    @IBOutlet var popImageView: UIImageView!
     @IBOutlet var popLabel: UILabel!
-    @IBOutlet var rehImageView: UIImageView! {
-        didSet {
-            rehImageView.image = rehImageView.image?.withRenderingMode(.alwaysTemplate)
-            rehImageView.tintColor = UIColor.white
-        }
-    }
+    @IBOutlet var rehImageView: UIImageView!
     @IBOutlet var rehLabel: UILabel!
-    @IBOutlet var vecImageView: UIImageView! {
-        didSet {
-            vecImageView.image = vecImageView.image?.withRenderingMode(.alwaysTemplate)
-            vecImageView.tintColor = UIColor.white
-        }
-    }
+    @IBOutlet var vecImageView: UIImageView!
     @IBOutlet var windLabel: UILabel!
     
     // MARK: - Initializer
@@ -89,8 +64,7 @@ class WeatherForecastCell: UICollectionViewCell {
                 skyStatusImageView.image = UIImage(named: "snow")
             }
         }
-        skyStatusImageView.image = skyStatusImageView.image?.withRenderingMode(.alwaysTemplate)
-        skyStatusImageView.tintColor = UIColor.white
+        setTintColor(WeatherInfoCell.tintColorType)
     }
     /// vec 값에 따른 vecImageView 설정
     func setVecImageView(_ vec: String) {
@@ -111,6 +85,31 @@ class WeatherForecastCell: UICollectionViewCell {
         } else if vec == "서북" {
             vecImageView.transform = CGAffineTransform(rotationAngle: CGFloat((135 * Double.pi) / 180))
         }
+    }
+    /// 이미지, 텍스트 색상을 설정한다
+    private func setTintColor(_ type: TintColorType) {
+        var color: UIColor
+        switch type {
+        case .white:
+            color = .white
+        case .black:
+            color = .black
+        }
+        skyStatusImageView.image = skyStatusImageView.image?.withRenderingMode(.alwaysTemplate)
+        skyStatusImageView.tintColor = color
+        tempImageView.image = tempImageView.image?.withRenderingMode(.alwaysTemplate)
+        tempImageView.tintColor = color
+        popImageView.image = popImageView.image?.withRenderingMode(.alwaysTemplate)
+        popImageView.tintColor = color
+        rehImageView.image = rehImageView.image?.withRenderingMode(.alwaysTemplate)
+        rehImageView.tintColor = color
+        vecImageView.image = vecImageView.image?.withRenderingMode(.alwaysTemplate)
+        vecImageView.tintColor = color
+        timeLabel.textColor = color
+        tempLabel.textColor = color
+        popLabel.textColor = color
+        rehLabel.textColor = color
+        windLabel.textColor = color
     }
 }
 

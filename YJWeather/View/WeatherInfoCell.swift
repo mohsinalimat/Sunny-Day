@@ -9,14 +9,17 @@
 import UIKit
 
 class ExpandingTableViewCellContent {
-    var totalDataList: TotalData
+    var totalData: TotalData
     var expanded: Bool
     var isEditing: Bool
     init(data: TotalData) {
-        totalDataList = data
+        totalData = data
         self.expanded = false
         self.isEditing = false
     }
+}
+enum TintColorType {
+    case white, black
 }
 
 class WeatherInfoCell: UITableViewCell {
@@ -25,71 +28,50 @@ class WeatherInfoCell: UITableViewCell {
     private enum AirPollutionIndex: Int {
         case khai, pm10, pm25, co, no2, o3, so2
     }
-    private enum BackgroundType {
+    
+    enum BackgroundColorType {
         case sky, air
     }
     
     // MARK: - Properties
     // MARK: -
+    static let tintColorType: TintColorType = .white
     private var weatherRealtime: WeatherRealtimeData?
     private var weatherLocals: [WeatherLocalData]?
     private var airPollution : AirPollutionData?
     private var airPollutionCount = 7
-    @IBOutlet weak var deleteButton: UIButton! {
+    @IBOutlet var deleteButton: UIButton! {
         didSet {
             deleteButton.layer.cornerRadius = deleteButton.frame.width / 2
         }
     }
-    @IBOutlet private weak var bgView: UIView! {
+    @IBOutlet private var bgView: UIView! {
         didSet {
             bgView.layer.cornerRadius = 10
         }
     }
     @IBOutlet private var summaryView: UIView!
     @IBOutlet private var locationLabel: UILabel!
-    @IBOutlet private var skyStatusImageView: UIImageView! {
-        didSet {
-            skyStatusImageView.image = skyStatusImageView.image?.withRenderingMode(.alwaysTemplate)
-            skyStatusImageView.tintColor = UIColor.white
-        }
-    }
+    @IBOutlet private var skyStatusImageView: UIImageView!
     @IBOutlet private var popView: UIView!
-    @IBOutlet private var popImageView: UIImageView! {
-        didSet {
-            popImageView.image = popImageView.image?.withRenderingMode(.alwaysTemplate)
-            popImageView.tintColor = UIColor.white
-        }
-    }
+    @IBOutlet private var popImageView: UIImageView!
     @IBOutlet private var popLabel: UILabel!
     @IBOutlet private var rn1Label: UILabel!
     @IBOutlet private var skyStatusLabel: UILabel!
-    @IBOutlet private var rehImageView: UIImageView! {
-        didSet {
-            rehImageView.image = rehImageView.image?.withRenderingMode(.alwaysTemplate)
-            rehImageView.tintColor = UIColor.white
-        }
-    }
+    @IBOutlet private var rehImageView: UIImageView!
     @IBOutlet private var rehLabel: UILabel!
-    @IBOutlet private var windImageView: UIImageView! {
-        didSet {
-            windImageView.image = windImageView.image?.withRenderingMode(.alwaysTemplate)
-            windImageView.tintColor = UIColor.white
-        }
-    }
-    @IBOutlet private var vecImageView: UIImageView! {
-        didSet {
-            vecImageView.image = vecImageView.image?.withRenderingMode(.alwaysTemplate)
-            vecImageView.tintColor = UIColor.white
-        }
-    }
+    @IBOutlet private var windImageView: UIImageView!
+    @IBOutlet private var vecImageView: UIImageView!
     @IBOutlet private var wsdLabel: UILabel!
     @IBOutlet private var pm10Label: UILabel!
     @IBOutlet private var currentTempLabel: UILabel!
     @IBOutlet private var maxMinTempLabel: UILabel!
-    @IBOutlet weak var arrowImageView: UIImageView!
-    @IBOutlet private weak var detailView: UIView!
-    @IBOutlet private weak var airPollutionCollectionView: UICollectionView!
-    @IBOutlet private weak var weatherForecastCollectionView: UICollectionView!
+    @IBOutlet private var arrowImageView: UIImageView!
+    @IBOutlet private var detailView: UIView!
+    @IBOutlet private var airPollutionCollectionView: UICollectionView!
+    @IBOutlet private var weatherForecastCollectionView: UICollectionView!
+    @IBOutlet private var weatherLocalsTitleLabel: UILabel!
+    @IBOutlet private var airPollutionTitleLabel: UILabel!
     
     // MARK: - Initializer
     // MARK: -
@@ -124,10 +106,10 @@ class WeatherInfoCell: UITableViewCell {
             deleteButton.isHidden = true
         }
         // 데이터 초기화 작업
-        locationLabel.text = content.totalDataList.location
-        weatherRealtime = content.totalDataList.weatherRealtime
-        weatherLocals = content.totalDataList.weatherLocals
-        airPollution = content.totalDataList.airPollution
+        locationLabel.text = content.totalData.location
+        weatherRealtime = content.totalData.weatherRealtime
+        weatherLocals = content.totalData.weatherLocals
+        airPollution = content.totalData.airPollution
         prepareCell()
     }
     /// 셀을 준비한다
@@ -197,67 +179,6 @@ class WeatherInfoCell: UITableViewCell {
             pm10Label.text = "미세먼지 \(pm10Grade1h)"
         }
     }
-    /// 하늘 상태, 공기오염 상태에 따른 백그라운 색상을 설정한다
-    private func setBackgroundColor(_ type: BackgroundType) {
-        switch type {
-        case .sky:
-            // 하늘 상태에 따른 셀 배경 색상 설정
-            if let sky = weatherRealtime?.sky {
-                setBackGroundColorWithSkyState(sky)
-            }
-        case .air:
-            // 공기오염 상태에 따른 셀 배경 색상 설정
-            if let pm10Grade = airPollution?.pm10Grade,
-                let pm25Grade = airPollution?.pm25Grade,
-                let khaiGrade = airPollution?.khaiGrade {
-                if pm10Grade != "정보없음" {
-                    setBackGroundColorWithAirState(pm10Grade)
-                } else if pm25Grade != "정보없음" {
-                    setBackGroundColorWithAirState(pm25Grade)
-                } else if khaiGrade != "정보없음" {
-                    setBackGroundColorWithAirState(khaiGrade)
-                } else {
-                    setBackGroundColorWithAirState("정보없음")
-                }
-            }
-        }
-    }
-    // 하늘 상태에 따른 백그라운드 색상 설정
-    private func setBackGroundColorWithSkyState(_ state: String) {
-        /* To do */
-        switch state {
-        case "맑음":
-            bgView.backgroundColor = UIColor(red: 255/255, green: 209/255, blue: 65/255, alpha: 1)
-        case "구름조금":
-            bgView.backgroundColor = UIColor(red: 246/255, green: 137/255, blue: 56/255, alpha: 1)
-        case "구름많음":
-            bgView.backgroundColor = UIColor(red: 146/255, green: 182/255, blue: 177/255, alpha: 1)
-        case "흐림":
-            bgView.backgroundColor = UIColor(red: 98/255, green: 120/255, blue: 141/255, alpha: 1)
-        case "비", "비/눈":
-            bgView.backgroundColor = UIColor(red: 90/255, green: 147/255, blue: 199/255, alpha: 1)
-        case "눈":
-            bgView.backgroundColor = UIColor(red: 166/255, green: 217/255, blue: 255/255, alpha: 1)
-        default:
-            ()
-        }
-        /* End to do */
-    }
-    // 공기오염 상태에 따른 백그라운드 색상 설정
-    private func setBackGroundColorWithAirState(_ state: String) {
-        switch state {
-        case "좋음":  // 파랑
-            bgView.backgroundColor = UIColor(red: 97/255, green: 168/255, blue: 255/255, alpha: 1)
-        case "보통":  // 녹색
-            bgView.backgroundColor = UIColor(red: 119/255, green: 221/255, blue: 119/255, alpha: 1)
-        case "나쁨":  // 노랑
-            bgView.backgroundColor = UIColor(red: 255/255, green: 179/255, blue: 71/255, alpha: 1)
-        case "매우나쁨":    // 빨강
-            bgView.backgroundColor = UIColor(red: 255/255, green: 105/255, blue: 97/255, alpha: 1)
-        default:    // 정보없음
-            bgView.backgroundColor = UIColor(red: 207/255, green: 207/255, blue: 196/255, alpha: 1)
-        }
-    }
     /// sky, pty 값에 따른 skyImageView 설정
     private func setSkyImageView(_ sky: String, pty: String) {
         let dateFormatter = DateFormatter()
@@ -292,8 +213,7 @@ class WeatherInfoCell: UITableViewCell {
                 skyStatusImageView.image = UIImage(named: "snow")
             }
         }
-        skyStatusImageView.image = skyStatusImageView.image?.withRenderingMode(.alwaysTemplate)
-        skyStatusImageView.tintColor = UIColor.white
+        setTintColor(WeatherInfoCell.tintColorType)
     }
     /// vec 값에 따른 vecImageView 설정
     private func setVecImageView(_ vec: String) {
@@ -313,6 +233,100 @@ class WeatherInfoCell: UITableViewCell {
             vecImageView.transform = CGAffineTransform(rotationAngle: CGFloat((90 * Double.pi) / 180))
         } else if vec == "서북" {
             vecImageView.transform = CGAffineTransform(rotationAngle: CGFloat((135 * Double.pi) / 180))
+        }
+    }
+    /// 이미지, 텍스트 색상을 설정한다
+    private func setTintColor(_ type: TintColorType) {
+        var color: UIColor
+        switch type {
+        case .white:
+            color = .white
+        case .black:
+            color = .black
+        }
+        skyStatusImageView.image = skyStatusImageView.image?.withRenderingMode(.alwaysTemplate)
+        skyStatusImageView.tintColor = color
+        popImageView.image = popImageView.image?.withRenderingMode(.alwaysTemplate)
+        popImageView.tintColor = color
+        rehImageView.image = rehImageView.image?.withRenderingMode(.alwaysTemplate)
+        rehImageView.tintColor = color
+        windImageView.image = windImageView.image?.withRenderingMode(.alwaysTemplate)
+        windImageView.tintColor = color
+        vecImageView.image = vecImageView.image?.withRenderingMode(.alwaysTemplate)
+        arrowImageView.image = arrowImageView.image?.withRenderingMode(.alwaysTemplate)
+        arrowImageView.tintColor = color
+        vecImageView.tintColor = color
+        locationLabel.textColor = color
+        popLabel.textColor = color
+        rn1Label.textColor = color
+        rehLabel.textColor = color
+        skyStatusLabel.textColor = color
+        wsdLabel.textColor = color
+        pm10Label.textColor = color
+        currentTempLabel.textColor = color
+        maxMinTempLabel.textColor = color
+        weatherLocalsTitleLabel.textColor = color
+        airPollutionTitleLabel.textColor = color
+    }
+    /// 하늘 상태, 공기오염 상태에 따른 백그라운 색상을 설정한다
+    private func setBackgroundColor(_ type: BackgroundColorType) {
+        switch type {
+        case .sky:
+            // 하늘 상태에 따른 셀 배경 색상 설정
+            if let sky = weatherRealtime?.sky {
+                setBackGroundColorWithSkyState(sky)
+            }
+        case .air:
+            // 공기오염 상태에 따른 셀 배경 색상 설정
+            if let pm10Grade = airPollution?.pm10Grade,
+                let pm25Grade = airPollution?.pm25Grade,
+                let khaiGrade = airPollution?.khaiGrade {
+                if pm10Grade != "정보없음" {
+                    setBackGroundColorWithAirState(pm10Grade)
+                } else if pm25Grade != "정보없음" {
+                    setBackGroundColorWithAirState(pm25Grade)
+                } else if khaiGrade != "정보없음" {
+                    setBackGroundColorWithAirState(khaiGrade)
+                } else {
+                    setBackGroundColorWithAirState("정보없음")
+                }
+            }
+        }
+    }
+    // 하늘 상태에 따른 백그라운드 색상 설정
+    private func setBackGroundColorWithSkyState(_ state: String) {
+        /* To do */
+        switch state {
+        case "맑음":
+            bgView.backgroundColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
+        case "구름조금":
+            bgView.backgroundColor = UIColor(red: 255/255, green: 204/255, blue: 0/255, alpha: 1)
+        case "구름많음":
+            bgView.backgroundColor = UIColor(red: 255/255, green: 149/255, blue: 0/255, alpha: 1)
+        case "흐림":
+            bgView.backgroundColor = UIColor(red: 88/255, green: 86/255, blue: 214/255, alpha: 1)
+        case "비", "비/눈":
+            bgView.backgroundColor = UIColor(red: 0/255, green: 122/255, blue: 255/255, alpha: 1)
+        case "눈":
+            bgView.backgroundColor = UIColor(red: 90/255, green: 200/255, blue: 250/255, alpha: 1)
+        default:
+            bgView.backgroundColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
+        }
+        /* End to do */
+    }
+    // 공기오염 상태에 따른 백그라운드 색상 설정
+    private func setBackGroundColorWithAirState(_ state: String) {
+        switch state {
+        case "좋음":  // 파랑
+            bgView.backgroundColor = UIColor(red: 97/255, green: 168/255, blue: 255/255, alpha: 1)
+        case "보통":  // 녹색
+            bgView.backgroundColor = UIColor(red: 119/255, green: 221/255, blue: 119/255, alpha: 1)
+        case "나쁨":  // 노랑
+            bgView.backgroundColor = UIColor(red: 255/255, green: 179/255, blue: 71/255, alpha: 1)
+        case "매우나쁨":    // 빨강
+            bgView.backgroundColor = UIColor(red: 255/255, green: 105/255, blue: 97/255, alpha: 1)
+        default:    // 정보없음
+            bgView.backgroundColor = UIColor(red: 207/255, green: 207/255, blue: 196/255, alpha: 1)
         }
     }
 }

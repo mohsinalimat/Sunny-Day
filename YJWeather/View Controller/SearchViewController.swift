@@ -28,7 +28,7 @@ class SearchViewController: UIViewController {
     }
     @IBOutlet var backButton: UIButton!
     @IBOutlet var searchResultLabel: UILabel!
-    @IBOutlet weak var coverView: UIView!
+    @IBOutlet var coverView: UIView!
     
     // MARK: - View lifecycle
     // MARK: -
