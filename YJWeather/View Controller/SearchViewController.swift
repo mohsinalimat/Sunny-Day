@@ -47,11 +47,11 @@ class SearchViewController: UIViewController {
     // MARK: - Custom methods
     // MARK: -
     /// searchBar.text 존재 유무
-    func isFiltering() -> Bool {
+    private func isFiltering() -> Bool {
         return (searchBar.text?.isEmpty)! ? false : true
     }
     /// searchText가 포함된 umdData를
-    func filterContentForSearchText(_ searchText: String) {
+    private func filterContentForSearchText(_ searchText: String) {
         // searchBar.text가 존재할 경우 umds에서 searchText가 포함된 배열을 반환한다
         filteredUmdData = umds.filter { (umdData) -> Bool in
             return isFiltering() ? umdData.name.contains(searchText) : true
@@ -61,7 +61,7 @@ class SearchViewController: UIViewController {
         tableView.reloadData()
     }
     /// MainViewController로 되돌아간다
-    @objc func goBack(_ sender: Any) {
+    @objc private func goBack(_ sender: Any) {
         dismiss(animated: false, completion: nil)
     }
 }
@@ -94,7 +94,17 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
             let umdData = filteredUmdData[indexPath.row]
             let (latitude, longitude) = Coordinates().convertToLatitudeLongitude(tmX: umdData.tmX, tmY: umdData.tmY)
             var locationData = LocationData()
-            locationData.location = umdData.name
+            // 위치명은 지역이름 뒤에서 두 개만 가져온다(ex: 서울특별시 서초구 서초동 -> 서초구 서초동)
+            var locationNames = umdData.name.split(separator: " ")
+            var location = ""
+            for i in 0 ..< 2 {
+                var locationName = String(locationNames.removeLast())
+                if i == 0 {
+                    locationName = " " + locationName
+                }
+                location = locationName + location
+            }
+            locationData.location = location
             locationData.latitude = latitude
             locationData.longitude = longitude
             locationData.regdate = Date()

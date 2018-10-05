@@ -227,7 +227,7 @@ class Weather {
                 date = "\(forecastDate)"
                 time = "\(forecastTime)"
                 weatherLocalData.date = date
-                weatherLocalData.time = time
+                weatherLocalData.time = String(time.prefix(2))
             }
             // 루프의 종료 +24시간의 데이터만 받아온다
             let (_, escapeTime) = getBaseDateTime(.local)

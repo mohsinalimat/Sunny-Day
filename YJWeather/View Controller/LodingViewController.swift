@@ -65,7 +65,7 @@ class LodingViewController: UIViewController {
     // MARK: - Custom methods
     // MARK: -
     /// UmdDataList에서 UmdData를 추출한다
-    func prepareUmdDataFromLocalFile() {
+    private func prepareUmdDataFromLocalFile() {
         if let rtfPath = Bundle.main.url(forResource: "UmdDataList", withExtension: "rtf") {
             do {
                 let option = [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.rtf]

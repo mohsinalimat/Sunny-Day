@@ -10,6 +10,7 @@ import Foundation
 
 struct TotalData {
     var location: String
+    var regdate: Date
     var weatherRealtime: WeatherRealtimeData
     var weatherLocals: [WeatherLocalData]
     var airPollution: AirPollutionData

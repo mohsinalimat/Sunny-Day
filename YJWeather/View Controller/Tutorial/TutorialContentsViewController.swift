@@ -41,7 +41,7 @@ class TutorialContentsViewController: UIViewController {
     
     // MARK: - Custom methods
     // MARK: -
-    func initializeDescriptionView() {
+    private func initializeDescriptionView() {
         descriptionView.layer.cornerRadius = 10
         view.bringSubview(toFront: descriptionView)
         thermometerImageView.image = thermometerImageView.image?.withRenderingMode(.alwaysTemplate)

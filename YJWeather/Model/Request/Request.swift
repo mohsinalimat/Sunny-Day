@@ -65,11 +65,12 @@ class Request: RequestProtocol {
         let dispatchGroup = DispatchGroup()
         // 네트워크 인디케이터 로딩 시작
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        dispatchGroup.enter()
         // 현재 위치 데이터 처리
+        var firstTotalData: TotalData?
+        dispatchGroup.enter()
         request(data) { (isSuccess, data, error) in
             if isSuccess, let totalData = data as? TotalData {
-                totalDataList.insert(totalData, at: 0)
+                firstTotalData = totalData
             } else {
                 requestError = error
             }
@@ -99,12 +100,20 @@ class Request: RequestProtocol {
                 completion(false, nil, requestError)
                 return
             }
+            // totlaDataList를 등록순으로 정렬후 전달한다
+            totalDataList.sort { (first, second) -> Bool in
+                return first.regdate < second.regdate
+            }
+            if let firstTotalData = firstTotalData {
+                totalDataList.insert(firstTotalData, at: 0)
+            }
             completion(true, totalDataList, nil)
         }
     }
     /// LocationData를 기반으로 날씨, 미세먼지 데이터를 요청하고 성공시 핸들러를 통해 TotalData를 전달한다
     func request(_ data: LocationData, completion: @escaping requestCompletionHandler) {
         guard let location = data.location,
+            let regdate = data.regdate,
             let latitude = data.latitude,
             let longitude = data.longitude else {
                 return
@@ -154,7 +163,7 @@ class Request: RequestProtocol {
             if requestError != nil {
                 completion(false, nil, requestError)
             } else {
-                let totalData = TotalData(location: location, weatherRealtime: weatherRealtime, weatherLocals: weatherLocals, airPollution: airPollution)
+                let totalData = TotalData(location: location, regdate: regdate, weatherRealtime: weatherRealtime, weatherLocals: weatherLocals, airPollution: airPollution)
                 completion(true, totalData, nil)
             }
         }
