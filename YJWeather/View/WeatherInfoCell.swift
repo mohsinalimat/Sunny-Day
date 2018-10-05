@@ -9,96 +9,104 @@
 import UIKit
 
 class ExpandingTableViewCellContent {
-    var data: [String: Any]
+    var totalDataList: TotalData
     var expanded: Bool
     var isEditing: Bool
-    
-    init(data: [String: Any]) {
-        self.data = data
+    init(data: TotalData) {
+        totalDataList = data
         self.expanded = false
         self.isEditing = false
     }
 }
 
 class WeatherInfoCell: UITableViewCell {
-    @IBOutlet weak var deleteButton: UIButton!
+    // MARK: - Custom enumerations
+    // MARK: -
+    private enum AirPollutionIndex: Int {
+        case khai, pm10, pm25, co, no2, o3, so2
+    }
+    private enum BackgroundType {
+        case sky, air
+    }
     
-    @IBOutlet private weak var bgView: UIView!
-    
+    // MARK: - Properties
+    // MARK: -
+    private var weatherRealtime: WeatherRealtimeData?
+    private var weatherLocals: [WeatherLocalData]?
+    private var airPollution : AirPollutionData?
+    private var airPollutionCount = 7
+    @IBOutlet weak var deleteButton: UIButton! {
+        didSet {
+            deleteButton.layer.cornerRadius = deleteButton.frame.width / 2
+        }
+    }
+    @IBOutlet private weak var bgView: UIView! {
+        didSet {
+            bgView.layer.cornerRadius = 10
+        }
+    }
     @IBOutlet private var summaryView: UIView!
     @IBOutlet private var locationLabel: UILabel!
-    @IBOutlet private var skyStatusImageView: UIImageView!
+    @IBOutlet private var skyStatusImageView: UIImageView! {
+        didSet {
+            skyStatusImageView.image = skyStatusImageView.image?.withRenderingMode(.alwaysTemplate)
+            skyStatusImageView.tintColor = UIColor.white
+        }
+    }
     @IBOutlet private var popView: UIView!
-    @IBOutlet private var popImageView: UIImageView!
+    @IBOutlet private var popImageView: UIImageView! {
+        didSet {
+            popImageView.image = popImageView.image?.withRenderingMode(.alwaysTemplate)
+            popImageView.tintColor = UIColor.white
+        }
+    }
     @IBOutlet private var popLabel: UILabel!
     @IBOutlet private var rn1Label: UILabel!
     @IBOutlet private var skyStatusLabel: UILabel!
-    @IBOutlet private var rehImageView: UIImageView!
+    @IBOutlet private var rehImageView: UIImageView! {
+        didSet {
+            rehImageView.image = rehImageView.image?.withRenderingMode(.alwaysTemplate)
+            rehImageView.tintColor = UIColor.white
+        }
+    }
     @IBOutlet private var rehLabel: UILabel!
-    @IBOutlet private var windImageView: UIImageView!
-    @IBOutlet private var vecImageView: UIImageView!
+    @IBOutlet private var windImageView: UIImageView! {
+        didSet {
+            windImageView.image = windImageView.image?.withRenderingMode(.alwaysTemplate)
+            windImageView.tintColor = UIColor.white
+        }
+    }
+    @IBOutlet private var vecImageView: UIImageView! {
+        didSet {
+            vecImageView.image = vecImageView.image?.withRenderingMode(.alwaysTemplate)
+            vecImageView.tintColor = UIColor.white
+        }
+    }
     @IBOutlet private var wsdLabel: UILabel!
     @IBOutlet private var pm10Label: UILabel!
     @IBOutlet private var currentTempLabel: UILabel!
     @IBOutlet private var maxMinTempLabel: UILabel!
-    
     @IBOutlet weak var arrowImageView: UIImageView!
-    
     @IBOutlet private weak var detailView: UIView!
     @IBOutlet private weak var airPollutionCollectionView: UICollectionView!
     @IBOutlet private weak var weatherForecastCollectionView: UICollectionView!
     
-    // 실황은 [String: Any] 타입
-    private var weatherRealTimeDict = [String: Any]()
-    
-    // 예보는 [String: [(String, String)]] 타입
-    private var weatherForecastDict = [String: Any]()
-    
-    // 대기상태는 [String: Any] 타입
-    private var airPollutionDict = [String: Any]()
-    private var airPollutionDataArr = [(title: String, grade: String, value: String)]()
-    private var timeArr = [String]()
-    private var skyArr = [String]()
-    private var ptyArr = [String]()
-    private var t3hArr = [String]()
-    private var popArr = [String]()
-    private var rehArr = [String]()
-    private var vecArr = [String]()
-    private var wsdArr = [String]()
-    
+    // MARK: - Initializer
+    // MARK: -
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        bgView.layer.cornerRadius = 10
         selectionStyle = .none
         bringSubview(toFront: deleteButton)
-        deleteButton.layer.cornerRadius = deleteButton.frame.width / 2
-        
-        skyStatusImageView.image = skyStatusImageView.image?.withRenderingMode(.alwaysTemplate)
-        skyStatusImageView.tintColor = UIColor.white
-        popImageView.image = popImageView.image?.withRenderingMode(.alwaysTemplate)
-        popImageView.tintColor = UIColor.white
-        rehImageView.image = rehImageView.image?.withRenderingMode(.alwaysTemplate)
-        rehImageView.tintColor = UIColor.white
-        windImageView.image = windImageView.image?.withRenderingMode(.alwaysTemplate)
-        windImageView.tintColor = UIColor.white
-        vecImageView.image = vecImageView.image?.withRenderingMode(.alwaysTemplate)
-        vecImageView.tintColor = UIColor.white
-        
         weatherForecastCollectionView.delegate = self
         weatherForecastCollectionView.dataSource = self
         airPollutionCollectionView.delegate = self
         airPollutionCollectionView.dataSource = self
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
-    }
-    
+    // MARK: - Custom methods
+    // MARK: -
     func show(_ content: ExpandingTableViewCellContent) {
-        
+        // 셀 확장 처리
         if content.expanded {
             arrowImageView.image = UIImage(named: "up-arrow")
             detailView.isHidden = true
@@ -107,7 +115,7 @@ class WeatherInfoCell: UITableViewCell {
             detailView.isHidden = false
         }
         detailView.isHidden = content.expanded ? false : true
-        
+        // 셀 애니메이션 처리
         if content.isEditing {
             startShakeAnimation()
             deleteButton.isHidden = false
@@ -115,68 +123,63 @@ class WeatherInfoCell: UITableViewCell {
             stopShakeAnimation()
             deleteButton.isHidden = true
         }
-        
-        if let weatherRealTimeDict = content.data["weatherRealTime"] as? [String: Any],
-            let weatherForecastDict = content.data["weatherForecast"] as? [String: Any],
-            let airPollutionDict = content.data["airPollution"] as? [String: Any],
-            let location = content.data["location"] as? String {
-            self.weatherRealTimeDict = weatherRealTimeDict
-            self.weatherForecastDict = weatherForecastDict
-            self.airPollutionDict = airPollutionDict
-            locationLabel.text = location
-        }
-        
-        if weatherForecastDict.isEmpty || weatherRealTimeDict.isEmpty || airPollutionDict.isEmpty {
-            //print("데이터가 누락되었습니다.")
-        } else {
-            prepareCell()
-        }
+        // 데이터 초기화 작업
+        locationLabel.text = content.totalDataList.location
+        weatherRealtime = content.totalDataList.weatherRealtime
+        weatherLocals = content.totalDataList.weatherLocals
+        airPollution = content.totalDataList.airPollution
+        prepareCell()
     }
-    
+    /// 셀을 준비한다
     private func prepareCell() {
         prepareSummaryView()
-        prepareWeatherForecastCell()
-        prepareAirPollutionCell()
+        airPollutionCollectionView.reloadData()
+        weatherForecastCollectionView.reloadData()
+        setBackgroundColor(.sky)
     }
-    
+    /// summaryView를 초기화한다
     private func prepareSummaryView() {
-        
-        guard let t1h = weatherRealTimeDict["T1H"] as? String,  // 현재온도
-            let sky = weatherRealTimeDict["SKY"] as? String,    // 하늘상태
-            let pty = weatherRealTimeDict["PTY"] as? String,    // 강수형태
-            let rn1 = weatherRealTimeDict["RN1"] as? String,    // 강수량
-            let reh = weatherRealTimeDict["REH"] as? String,    // 습도
-            let vec = weatherRealTimeDict["VEC"] as? String,    // 풍향
-            let wsd = weatherRealTimeDict["WSD"] as? String     // 풍속
-            else {
+        guard let weatherRealtime = weatherRealtime,
+            let weatherLocals = weatherLocals else {
                 return
         }
-        
-        guard let popArr = weatherForecastDict["POP"] as? [(String, String)],
-            let s06Arr = weatherForecastDict["S06"] as? [(String, String)],
-            let tmxArr = weatherForecastDict["TMX"] as? [(String, String)],
-            let tmnArr = weatherForecastDict["TMN"] as? [(String, String)],
-            let tmx = tmxArr.first?.1,  // 최고온도
-            let tmn = tmnArr.first?.1,  // 최저온도
-            let pop = popArr.first?.1,  // 강수확률
-            let s06 = s06Arr.first?.1   // 적설량
-            else {
+        guard let t1h = weatherRealtime.t1h,        // 현재온도
+            let sky = weatherRealtime.sky,          // 하늘상태
+            let pty = weatherRealtime.pty,          // 강수형태
+            let rn1 = weatherRealtime.rn1,          // 강수량
+            let reh = weatherRealtime.reh,          // 습도
+            let vec = weatherRealtime.vec,          // 풍향
+            let wsd = weatherRealtime.wsd else {    // 풍속
                 return
         }
-        
-        setSkyImageView(sky: sky, pty: pty)
-        setVecImageView(vec: vec)
-        
-        if pty == "없음" {
+        var tmx = "", tmn = "", pop = "", s06 = ""
+        for weatherLocal in weatherLocals {
+            if let tmxValue = weatherLocal.tmx, tmx.isEmpty {
+                tmx = tmxValue
+            }
+            if let tmnValue = weatherLocal.tmn, tmn.isEmpty {
+                tmn = tmnValue
+            }
+            if let popValue = weatherLocal.pop, pop.isEmpty {
+                pop = popValue
+            }
+            if let s06Value = weatherLocal.s06, s06.isEmpty {
+                s06 = s06Value
+            }
+        }
+        setSkyImageView(sky, pty: pty)
+        setVecImageView(vec)
+        switch pty {
+        case "없음":
             // "맑음", "구름조금", "구름많음", "흐림"
             skyStatusLabel.text = sky
             popView.isHidden = false
             rn1Label.isHidden = true
             // "맑음", "구름조금", "구름많음", "흐림" 일 때는 강수확률
             popLabel.text = pop
-        } else {
+        default:
             // "비", "비/눈", "눈"
-            skyStatusLabel.text = pty
+            skyStatusLabel.text = sky
             popView.isHidden = true
             rn1Label.isHidden = false
             // "비", "비/눈", "눈" 일 때는 강수량, 적설량으로 변경
@@ -188,131 +191,40 @@ class WeatherInfoCell: UITableViewCell {
         }
         rehLabel.text = reh
         wsdLabel.text = wsd
-        
         currentTempLabel.text = t1h
         maxMinTempLabel.text = "\(tmx)/\(tmn)"
-        
-        if let pm10Grade = airPollutionDict["pm10Grade1h"] as? String {
-            pm10Label.text = "미세먼지 \(pm10Grade)"
+        if let pm10Grade1h = airPollution?.pm10Grade1h {
+            pm10Label.text = "미세먼지 \(pm10Grade1h)"
         }
-        
-        // 하늘 상태에 따른 셀 배경 색상 설정
-        //setBackGroundColorWithSkyState(skyStatusLabel.text!)
     }
-    
-    private func prepareAirPollutionCell() {
-        
-        airPollutionDataArr.removeAll()
-        var khaiState = ""
-        var pm10State = ""
-        var pm25State = ""
-        
-        // 통합대기환경
-        if let khaiValue = airPollutionDict["khaiValue"] as? String,
-            let khaiGrade = airPollutionDict["khaiGrade"] as? String {
-            airPollutionDataArr.append((title: "통합대기환경", grade: khaiGrade, value: khaiValue))
-            khaiState = khaiGrade
+    /// 하늘 상태, 공기오염 상태에 따른 백그라운 색상을 설정한다
+    private func setBackgroundColor(_ type: BackgroundType) {
+        switch type {
+        case .sky:
+            // 하늘 상태에 따른 셀 배경 색상 설정
+            if let sky = weatherRealtime?.sky {
+                setBackGroundColorWithSkyState(sky)
+            }
+        case .air:
+            // 공기오염 상태에 따른 셀 배경 색상 설정
+            if let pm10Grade = airPollution?.pm10Grade,
+                let pm25Grade = airPollution?.pm25Grade,
+                let khaiGrade = airPollution?.khaiGrade {
+                if pm10Grade != "정보없음" {
+                    setBackGroundColorWithAirState(pm10Grade)
+                } else if pm25Grade != "정보없음" {
+                    setBackGroundColorWithAirState(pm25Grade)
+                } else if khaiGrade != "정보없음" {
+                    setBackGroundColorWithAirState(khaiGrade)
+                } else {
+                    setBackGroundColorWithAirState("정보없음")
+                }
+            }
         }
-        // 미세먼지
-        if let pm10Value = airPollutionDict["pm10Value"] as? String,
-            let pm10Grade = airPollutionDict["pm10Grade1h"] as? String {
-            airPollutionDataArr.append((title: "미세먼지", grade: pm10Grade, value: pm10Value))
-            pm10State = pm10Grade
-        }
-        // 초미세먼지
-        if let pm25Value = airPollutionDict["pm25Value"] as? String,
-            let pm25Grade = airPollutionDict["pm25Grade1h"] as? String {
-            airPollutionDataArr.append((title: "초미세먼지", grade: pm25Grade, value: pm25Value))
-            pm25State = pm25Grade
-        }
-        // 일산화탄소
-        if let coValue = airPollutionDict["coValue"] as? String,
-            let coGrade = airPollutionDict["coGrade"] as? String {
-            airPollutionDataArr.append((title: "일산화탄소", grade: coGrade, value: coValue))
-        }
-        // 이산화탄소
-        if let no2Value = airPollutionDict["no2Value"] as? String,
-            let no2Grade = airPollutionDict["no2Grade"] as? String {
-            airPollutionDataArr.append((title: "이산화탄소", grade: no2Grade, value: no2Value))
-        }
-        // 오존
-        if let o3Value = airPollutionDict["o3Value"] as? String,
-            let o3Grade = airPollutionDict["o3Grade"] as? String {
-            airPollutionDataArr.append((title: "오존", grade: o3Grade, value: o3Value))
-        }
-        // 아황산가스
-        if let so2Value = airPollutionDict["so2Value"] as? String,
-            let so2Grade = airPollutionDict["so2Grade"] as? String {
-            airPollutionDataArr.append((title: "아황산가스", grade: so2Grade, value: so2Value))
-        }
-        
-        // 미세먼지 상태에 따른 셀 배경 색상 설정
-        if pm10State != "정보없음" {
-            setBackGroundColorWithAirState(pm10State)
-        } else if pm25State != "정보없음" {
-            setBackGroundColorWithAirState(pm25State)
-        } else if khaiState != "정보없음" {
-            setBackGroundColorWithAirState(khaiState)
-        } else {
-            setBackGroundColorWithAirState("정보없음")
-        }
-        
-        airPollutionCollectionView.reloadData()
     }
-    
-    private func prepareWeatherForecastCell() {
-        
-        timeArr.removeAll()
-        skyArr.removeAll()
-        ptyArr.removeAll()
-        t3hArr.removeAll()
-        popArr.removeAll()
-        rehArr.removeAll()
-        vecArr.removeAll()
-        wsdArr.removeAll()
-        
-        if let skyArr = weatherForecastDict["SKY"] as? [(time: String, value: String)] {
-            for data in skyArr {
-                timeArr.append(data.time)
-                self.skyArr.append(data.value)
-            }
-        }
-        if let ptyArr = weatherForecastDict["PTY"] as? [(_: String, value: String)] {
-            for data in ptyArr {
-                self.ptyArr.append(data.value)
-            }
-        }
-        if let t3hArr = weatherForecastDict["T3H"] as? [(_: String, value: String)] {
-            for data in t3hArr {
-                self.t3hArr.append(data.value)
-            }
-        }
-        if let popArr = weatherForecastDict["POP"] as? [(_: String, value: String)] {
-            for data in popArr {
-                self.popArr.append(data.value)
-            }
-        }
-        if let rehArr = weatherForecastDict["REH"] as? [(_: String, value: String)] {
-            for data in rehArr {
-                self.rehArr.append(data.value)
-            }
-        }
-        if let vecArr = weatherForecastDict["VEC"] as? [(_: String, value: String)] {
-            for data in vecArr {
-                self.vecArr.append(data.value)
-            }
-        }
-        if let wsdArr = weatherForecastDict["WSD"] as? [(_: String, value: String)] {
-            for data in wsdArr {
-                self.wsdArr.append(data.value)
-            }
-        }
-        
-        weatherForecastCollectionView.reloadData()
-    }
-    
-    func setBackGroundColorWithSkyState(_ state: String) {
-        
+    // 하늘 상태에 따른 백그라운드 색상 설정
+    private func setBackGroundColorWithSkyState(_ state: String) {
+        /* To do */
         switch state {
         case "맑음":
             bgView.backgroundColor = UIColor(red: 255/255, green: 209/255, blue: 65/255, alpha: 1)
@@ -329,9 +241,10 @@ class WeatherInfoCell: UITableViewCell {
         default:
             ()
         }
+        /* End to do */
     }
-    
-    func setBackGroundColorWithAirState(_ state: String) {
+    // 공기오염 상태에 따른 백그라운드 색상 설정
+    private func setBackGroundColorWithAirState(_ state: String) {
         switch state {
         case "좋음":  // 파랑
             bgView.backgroundColor = UIColor(red: 97/255, green: 168/255, blue: 255/255, alpha: 1)
@@ -345,13 +258,11 @@ class WeatherInfoCell: UITableViewCell {
             bgView.backgroundColor = UIColor(red: 207/255, green: 207/255, blue: 196/255, alpha: 1)
         }
     }
-    
-    func setSkyImageView(sky: String, pty: String) {
-        
+    /// sky, pty 값에 따른 skyImageView 설정
+    private func setSkyImageView(_ sky: String, pty: String) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH"
-        let time = Int(dateFormatter.string(from: Date()))!
-        
+        let time = Int(dateFormatter.string(from: Date())) ?? 0
         if pty == "없음" {
             if sky == "맑음" {
                 if time >= 06 && time < 20 {
@@ -384,8 +295,8 @@ class WeatherInfoCell: UITableViewCell {
         skyStatusImageView.image = skyStatusImageView.image?.withRenderingMode(.alwaysTemplate)
         skyStatusImageView.tintColor = UIColor.white
     }
-    
-    func setVecImageView(vec: String) {
+    /// vec 값에 따른 vecImageView 설정
+    private func setVecImageView(_ vec: String) {
         if vec == "북" {
             vecImageView.transform = CGAffineTransform(rotationAngle: CGFloat((180 * Double.pi) / 180))
         } else if vec == "북동" {
@@ -407,50 +318,76 @@ class WeatherInfoCell: UITableViewCell {
 }
 
 extension WeatherInfoCell: UICollectionViewDelegate, UICollectionViewDataSource {
-    
+    // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
+    // MARK: -
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView === weatherForecastCollectionView {
-            return timeArr.count
-            
-        } else if collectionView === airPollutionCollectionView {
-            return airPollutionDataArr.count
+        if collectionView === airPollutionCollectionView {
+            return airPollutionCount
         }
-        return 1
+        return weatherLocals?.count ?? 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView === weatherForecastCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WeatherForecastCell", for: indexPath) as! WeatherForecastCell
-            
-            let time = timeArr[indexPath.row]
-            let sky = skyArr[indexPath.row]
-            let pty = ptyArr[indexPath.row]
-            
-            cell.timeLabel.text = time + "시"
-            cell.setSkyImageView(sky: sky, pty: pty, time: time)
-            
-            cell.tempLabel.text = t3hArr[indexPath.row]
-            cell.popLabel.text = popArr[indexPath.row]
-            cell.rehLabel.text = rehArr[indexPath.row]
-            
-            let vec = vecArr[indexPath.row]
-            cell.setVecImageView(vec: vec)
-            
-            cell.windLabel.text = wsdArr[indexPath.row]
-            
-            return cell
-            
-        } else if collectionView === airPollutionCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AirPollutionCell", for: indexPath) as! AirPollutionCell
-            
-            let data = airPollutionDataArr[indexPath.row]
-            cell.titleLabel.text = data.title
-            cell.gradeLabel.text = data.grade
-            cell.valueLabel.text = data.value
-            
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WeatherForecastCell", for: indexPath) as? WeatherForecastCell else {
+                return UICollectionViewCell()
+            }
+            if let time = weatherLocals?[indexPath.row].time,
+                let sky = weatherLocals?[indexPath.row].sky,
+                let pty = weatherLocals?[indexPath.row].pty {
+                cell.timeLabel.text = "\(time)시"
+                cell.setSkyImageView(sky, pty: pty)
+            }
+            if let t3h = weatherLocals?[indexPath.row].t3h,
+                let pop = weatherLocals?[indexPath.row].pop,
+                let reh = weatherLocals?[indexPath.row].reh {
+                cell.tempLabel.text = t3h
+                cell.popLabel.text = pop
+                cell.rehLabel.text = reh
+            }
+            if let vec = weatherLocals?[indexPath.row].vec,
+                let wsd = weatherLocals?[indexPath.row].wsd {
+                cell.setVecImageView(vec)
+                cell.windLabel.text = wsd
+            }
             return cell
         }
-        return UICollectionViewCell()
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AirPollutionCell", for: indexPath) as? AirPollutionCell else {
+            return UICollectionViewCell()
+        }
+        switch indexPath.row {
+        case AirPollutionIndex.khai.rawValue:
+            cell.titleLabel.text = "통합대기환경"
+            cell.gradeLabel.text = airPollution?.khaiGrade ?? ""
+            cell.valueLabel.text = airPollution?.khaiValue ?? ""
+        case AirPollutionIndex.pm10.rawValue:
+            cell.titleLabel.text = "미세먼지"
+            cell.gradeLabel.text = airPollution?.pm10Grade ?? ""
+            cell.valueLabel.text = airPollution?.pm10Value ?? ""
+        case AirPollutionIndex.pm25.rawValue:
+            cell.titleLabel.text = "초미세먼지"
+            cell.gradeLabel.text = airPollution?.pm25Grade ?? ""
+            cell.valueLabel.text = airPollution?.pm25Value ?? ""
+        case AirPollutionIndex.co.rawValue:
+            cell.titleLabel.text = "일산화탄소"
+            cell.gradeLabel.text = airPollution?.coGrade ?? ""
+            cell.valueLabel.text = airPollution?.coValue ?? ""
+        case AirPollutionIndex.no2.rawValue:
+            cell.titleLabel.text = "이산화탄소"
+            cell.gradeLabel.text = airPollution?.no2Grade ?? ""
+            cell.valueLabel.text = airPollution?.no2Value ?? ""
+        case AirPollutionIndex.o3.rawValue:
+            cell.titleLabel.text = "오존"
+            cell.gradeLabel.text = airPollution?.o3Grade ?? ""
+            cell.valueLabel.text = airPollution?.o3Value ?? ""
+        case AirPollutionIndex.so2.rawValue:
+            cell.titleLabel.text = "아황산가스"
+            cell.gradeLabel.text = airPollution?.so2Grade ?? ""
+            cell.valueLabel.text = airPollution?.so2Value ?? ""
+        default:
+            ()
+        }
+        return cell
     }
 }
 
