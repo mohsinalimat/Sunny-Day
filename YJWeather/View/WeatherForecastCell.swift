@@ -64,7 +64,7 @@ class WeatherForecastCell: UICollectionViewCell {
                 skyStatusImageView.image = UIImage(named: "snow")
             }
         }
-        setTintColor(WeatherInfoCell.tintColorType)
+        setTintColor((UIApplication.shared.delegate as? AppDelegate)?.tintColorType ?? .white)
     }
     /// vec 값에 따른 vecImageView 설정
     func setVecImageView(_ vec: String) {

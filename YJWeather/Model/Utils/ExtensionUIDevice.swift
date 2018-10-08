@@ -9,10 +9,10 @@
 import UIKit
 
 extension UIDevice {
+    
     enum Model {
         case iPhoneMax
         case iPhoneX
-        case iPhnoeXR
         case iPhonePlus
         case iPhone
         case iPhoneSE
@@ -20,21 +20,20 @@ extension UIDevice {
     }
     /// iPhone 기기 사이즈별 변수
     class var currentIPhone: Model {
-        switch self.current.name {
-        case "iPhone XS Max":
-            return .iPhoneMax
-        case "iPhone X", "iPhone XS":
-            return .iPhoneX
-        case "iPhone XR":
-            return .iPhnoeXR
-        case "iPhone 8 Plus", "iPhone 7 Plus", "iPhone 6s Plus", "iPhone 6 Plus":
-            return .iPhonePlus
-        case "iPhone 8", "iPhone 7", "iPhone 6s", "iPhone 6":
-            return .iPhone
-        case "iPhone SE", "iPhone 5s":
-            return .iPhoneSE
+        let (width, height) = (UIScreen.main.bounds.width, UIScreen.main.bounds.height)
+        switch (width, height) {
+        case (414, 896):
+            return Model.iPhoneMax
+        case (375, 812):
+            return Model.iPhoneX
+        case (414, 736):
+            return Model.iPhonePlus
+        case (375, 667):
+            return Model.iPhone
+        case (320, 548):
+            return Model.iPhoneSE
         default:
-            return .otherDevice
+            return Model.otherDevice
         }
     }
 }

@@ -19,7 +19,7 @@ class AirPollutionCell: UICollectionViewCell {
     // MARK: -
     override func awakeFromNib() {
         super.awakeFromNib()
-        setTintColor(WeatherInfoCell.tintColorType)
+        setTintColor((UIApplication.shared.delegate as? AppDelegate)?.tintColorType ?? .white)
     }
     
     // MARK: - Custom methods

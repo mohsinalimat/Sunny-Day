@@ -28,10 +28,26 @@ class MainViewController: UIViewController {
             tableView.separatorStyle = .none    // 셀 사이 간격x
         }
     }
-    @IBOutlet var footerView: UIView!
-    @IBOutlet var informationButton: UIButton!
-    @IBOutlet var addButton: UIButton!
-    @IBOutlet var removeButton: UIButton!
+    @IBOutlet var addButton: UIButton! {
+        didSet {
+            addButton.layer.cornerRadius = addButton.frame.width / 2
+            let color = (appDelegate.tintColorType == .white) ? UIColor.white : UIColor.black
+            let addImage = UIImage(named: "add")?.withRenderingMode(.alwaysTemplate)
+            addButton.setImage(addImage, for: .normal)
+            addButton.imageView?.tintColor = color
+        }
+    }
+    @IBOutlet var removeButton: UIButton! {
+        didSet {
+            removeButton.layer.cornerRadius = removeButton.frame.width / 2
+            let color = (appDelegate.tintColorType == .white) ? UIColor.white : UIColor.black
+            let minusImage = UIImage(named: "minus")?.withRenderingMode(.alwaysTemplate)
+            let cancelImage = UIImage(named: "cancel")?.withRenderingMode(.alwaysTemplate)
+            removeButton.setImage(minusImage, for: .normal)
+            removeButton.setImage(cancelImage, for: .selected)
+            removeButton.imageView?.tintColor = color
+        }
+    }
     @IBOutlet var coverView: UIView! {
         didSet {
             coverView.isHidden = true
@@ -54,8 +70,6 @@ class MainViewController: UIViewController {
         addButton.addTarget(self, action: #selector(displaySearchView(_:)), for: .touchUpInside)
         // removeButton: UIButton 초기화
         removeButton.addTarget(self, action: #selector(startEditing), for: .touchUpInside)
-        // informationButton: UIButton 초기화
-        informationButton.addTarget(self, action: #selector(displayTutorialView(_:)), for: .touchUpInside)
         // tableView: UITableView 초기화
         tableView.addSubview(refresher)
         // view: UIView 초기화
@@ -74,11 +88,10 @@ class MainViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // 첫 시작시, 튜토리얼 뷰 컨트롤러로 전환
-        /*  나중에 주석 제거
         if !UserDefaults.standard.bool(forKey: "TUTORIAL"),
-            let tutorialVC = UIStoryboard(name: "Tutorial", bundle: Bundle.main).instantiateViewController(withIdentifier: "MasterVC") as? TutorialMasterViewController {
+            let tutorialVC = UIStoryboard(name: "Tutorial", bundle: Bundle.main).instantiateViewController(withIdentifier: "TutorialVC") as? TutorialViewController {
             present(tutorialVC, animated: true, completion: nil)
-        }*/
+        }
         // 데이터가 추가되었거나 totalDataList가 비었다면 데이터를 리로드한다
         if MainViewController.dataAddCompletion {
             reloadData()
@@ -97,12 +110,6 @@ class MainViewController: UIViewController {
         // locationRequestCompletion = false로 변경 후 요청한다
         locationRequestCompletion = false
         manager.requestLocation()
-    }
-    /// 튜토리얼 뷰 컨트롤러를 호출
-    @objc private func displayTutorialView(_ sender: Any) {
-        if let tutorialVC = UIStoryboard(name: "Tutorial", bundle: nil).instantiateViewController(withIdentifier: "MasterVC") as? TutorialMasterViewController {
-            present(tutorialVC, animated: true, completion: nil)
-        }
     }
     /// 검색 뷰 컨트롤러를 호출
     @objc private func displaySearchView(_ sender: Any) {

@@ -42,9 +42,9 @@
 		103ABFF1215E740C00615262 /* WeatherLocalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103ABFF0215E740C00615262 /* WeatherLocalData.swift */; };
 		103ABFF3215E745300615262 /* AirPollutionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103ABFF2215E745300615262 /* AirPollutionData.swift */; };
 		1067B83B20AAD1DA005962EE /* Tutorial.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1067B83A20AAD1DA005962EE /* Tutorial.storyboard */; };
-		1067B83D20AB21AB005962EE /* TutorialContentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067B83C20AB21AB005962EE /* TutorialContentsViewController.swift */; };
-		1067B83F20AB2249005962EE /* TutorialMasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067B83E20AB2249005962EE /* TutorialMasterViewController.swift */; };
 		10B9933B20ABEB2500340BDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10B9933A20ABEB2400340BDD /* Assets.xcassets */; };
+		10E23305216B30CB00E668B0 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E23304216B30CB00E668B0 /* TutorialViewController.swift */; };
+		10E23307216B329200E668B0 /* TutorialContentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E23306216B329200E668B0 /* TutorialContentsViewController.swift */; };
 		D652827C9383CDC060B9B376 /* Pods_YJWeather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C77538BCB050A45F5E09B001 /* Pods_YJWeather.framework */; };
 /* End PBXBuildFile section */
 
@@ -86,9 +86,9 @@
 		103ABFF0215E740C00615262 /* WeatherLocalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherLocalData.swift; sourceTree = "<group>"; };
 		103ABFF2215E745300615262 /* AirPollutionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPollutionData.swift; sourceTree = "<group>"; };
 		1067B83A20AAD1DA005962EE /* Tutorial.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tutorial.storyboard; sourceTree = "<group>"; };
-		1067B83C20AB21AB005962EE /* TutorialContentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialContentsViewController.swift; sourceTree = "<group>"; };
-		1067B83E20AB2249005962EE /* TutorialMasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialMasterViewController.swift; sourceTree = "<group>"; };
 		10B9933A20ABEB2400340BDD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		10E23304216B30CB00E668B0 /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
+		10E23306216B329200E668B0 /* TutorialContentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialContentsViewController.swift; sourceTree = "<group>"; };
 		9C49D7EA4B421AE8962FCE78 /* Pods-YJWeather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YJWeather.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YJWeather/Pods-YJWeather.debug.xcconfig"; sourceTree = "<group>"; };
 		B99FA7601E2106227ED22DC5 /* Pods-YJWeather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YJWeather.release.xcconfig"; path = "Pods/Target Support Files/Pods-YJWeather/Pods-YJWeather.release.xcconfig"; sourceTree = "<group>"; };
 		C77538BCB050A45F5E09B001 /* Pods_YJWeather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YJWeather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -252,8 +252,8 @@
 		1067B83920AAD1C4005962EE /* Tutorial */ = {
 			isa = PBXGroup;
 			children = (
-				1067B83E20AB2249005962EE /* TutorialMasterViewController.swift */,
-				1067B83C20AB21AB005962EE /* TutorialContentsViewController.swift */,
+				10E23304216B30CB00E668B0 /* TutorialViewController.swift */,
+				10E23306216B329200E668B0 /* TutorialContentsViewController.swift */,
 			);
 			path = Tutorial;
 			sourceTree = "<group>";
@@ -393,16 +393,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1067B83F20AB2249005962EE /* TutorialMasterViewController.swift in Sources */,
 				103ABFF3215E745300615262 /* AirPollutionData.swift in Sources */,
 				1015ECAA20A9D59D0023A9C2 /* MainViewController.swift in Sources */,
-				1067B83D20AB21AB005962EE /* TutorialContentsViewController.swift in Sources */,
 				1015ECA820A9D5830023A9C2 /* LodingViewController.swift in Sources */,
 				10379309216328F00063F944 /* ExtensionUIView.swift in Sources */,
 				103793052163260A0063F944 /* ExtensionUIViewController.swift in Sources */,
 				103ABFED215E73AB00615262 /* LocationDAO.swift in Sources */,
 				1015EC7720A9CACC0023A9C2 /* AppDelegate.swift in Sources */,
 				10379307216326440063F944 /* ExtensionUIAlertController.swift in Sources */,
+				10E23307216B329200E668B0 /* TutorialContentsViewController.swift in Sources */,
 				1015EC9620A9D24E0023A9C2 /* LocationData.swift in Sources */,
 				1037930321631D240063F944 /* ExtenstionCLLocationManagerDelegate.swift in Sources */,
 				1037930B21632D9A0063F944 /* RequestError.swift in Sources */,
@@ -419,6 +418,7 @@
 				103ABFEF215E73FD00615262 /* WeatherRealtimeData.swift in Sources */,
 				103ABFEB215E3B7800615262 /* Coordinates.swift in Sources */,
 				1015EC7F20A9CACC0023A9C2 /* YJWeather.xcdatamodeld in Sources */,
+				10E23305216B30CB00E668B0 /* TutorialViewController.swift in Sources */,
 				103ABFF1215E740C00615262 /* WeatherLocalData.swift in Sources */,
 				103ABFE5215D282200615262 /* TotalData.swift in Sources */,
 				103ABFE9215E36F300615262 /* AirPollution.swift in Sources */,

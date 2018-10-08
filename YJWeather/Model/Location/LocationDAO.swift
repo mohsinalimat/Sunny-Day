@@ -45,7 +45,6 @@ class LocationDAO {
                 locations.append(data)
             }
         } catch {
-            print(error.localizedDescription)
         }
         return locations
     }
@@ -67,7 +66,6 @@ class LocationDAO {
             try context.save()
         } catch {
             context.rollback()
-            print(error.localizedDescription)
         }
     }
     /// 저장된 위치 데이터를 삭제하는 메서드
@@ -83,7 +81,6 @@ class LocationDAO {
             return true
         } catch {
             context.rollback()
-            print(error.localizedDescription)
             return false
         }
     }
@@ -105,7 +102,6 @@ class LocationDAO {
             try context.save()
         } catch {
             context.rollback()
-            print(error.localizedDescription)
         }
     }
 }

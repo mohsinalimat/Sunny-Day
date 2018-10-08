@@ -35,11 +35,9 @@ class LodingViewController: UIViewController {
         manager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
         manager.requestWhenInUseAuthorization()
         // 기기별 폰트사이즈 조정
-        /* To do */
         if UIDevice.currentIPhone == .iPhoneSE {
             appNameLabel.font = UIFont(name: "NanumSquareRoundOTFEB", size: 30)
         }
-        /* End to do */
         prepareUmdDataFromLocalFile()
     }
     

@@ -18,6 +18,7 @@ class ExpandingTableViewCellContent {
         self.isEditing = false
     }
 }
+
 enum TintColorType {
     case white, black
 }
@@ -35,7 +36,6 @@ class WeatherInfoCell: UITableViewCell {
     
     // MARK: - Properties
     // MARK: -
-    static let tintColorType: TintColorType = .white
     private var weatherRealtime: WeatherRealtimeData?
     private var weatherLocals: [WeatherLocalData]?
     private var airPollution : AirPollutionData?
@@ -213,7 +213,7 @@ class WeatherInfoCell: UITableViewCell {
                 skyStatusImageView.image = UIImage(named: "snow")
             }
         }
-        setTintColor(WeatherInfoCell.tintColorType)
+        setTintColor((UIApplication.shared.delegate as? AppDelegate)?.tintColorType ?? .white)
     }
     /// vec 값에 따른 vecImageView 설정
     private func setVecImageView(_ vec: String) {
@@ -295,7 +295,6 @@ class WeatherInfoCell: UITableViewCell {
     }
     // 하늘 상태에 따른 백그라운드 색상 설정
     private func setBackGroundColorWithSkyState(_ state: String) {
-        /* To do */
         switch state {
         case "맑음":
             bgView.backgroundColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
@@ -312,7 +311,6 @@ class WeatherInfoCell: UITableViewCell {
         default:
             bgView.backgroundColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
         }
-        /* End to do */
     }
     // 공기오염 상태에 따른 백그라운드 색상 설정
     private func setBackGroundColorWithAirState(_ state: String) {
