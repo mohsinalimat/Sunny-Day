@@ -124,8 +124,11 @@ class MainViewController: UIViewController {
     /// 편집(삭제) 작업을 시작
     @objc private func startEditing() {
         // dataSource == 1은 현재 위치 데이터만 존재, 더이상 삭제 불가
-        removeButton.isSelected = (dataSource.count == 1) ? false : !removeButton.isSelected
-        tableView.allowsSelection = !tableView.allowsSelection
+        if dataSource.count == 1 {
+            removeButton.isSelected = false
+        } else {
+            removeButton.isSelected = !removeButton.isSelected
+        }
         // removeButton이 선택된 상태라면 편집 작업을 시작하고 tableView 클릭을 비활성화 한다
         // 선택된 상태가 아니라면 편집 작업을 종료하고 tableView 클릭을 활성화 한다
         if removeButton.isSelected {
@@ -137,10 +140,12 @@ class MainViewController: UIViewController {
                 // 확장된 tableViewCell을 닫는다
                 content.expanded = false
             }
+            tableView.allowsSelection = false
         } else {
             dataSource.forEach { (content) in
                 content.isEditing = false
             }
+            tableView.allowsSelection = true
         }
         tableView.reloadData()
     }
