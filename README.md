@@ -39,7 +39,7 @@
 리팩토링 진행에 앞서 다음과 같은 목표를 세웠다. 공부한 내용들은 [블로그](https://0jun0815.github.io)에 정리해둘 것이다. 
 * 코드 간결화 및 기능의 세분화
 * 프로토콜 지향 프로그래밍
-* CoreData에 충분한 이해
+* CoreData에 충분한 이해 ([https://0jun0815.github.io/core-data](https://0jun0815.github.io/core-data))
 * Alamofire의 장단점 및 코드 분석
 * Instrument 사용해보기
 * UnitTest 사용해보기
