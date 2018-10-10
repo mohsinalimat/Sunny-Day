@@ -83,6 +83,7 @@ class WeatherInfoCell: UITableViewCell {
         weatherForecastCollectionView.dataSource = self
         airPollutionCollectionView.delegate = self
         airPollutionCollectionView.dataSource = self
+        setTintColor((UIApplication.shared.delegate as? AppDelegate)?.tintColorType ?? .white)
     }
     
     // MARK: - Custom methods
@@ -125,15 +126,6 @@ class WeatherInfoCell: UITableViewCell {
             let weatherLocals = weatherLocals else {
                 return
         }
-        guard let t1h = weatherRealtime.t1h,        // 현재온도
-            let sky = weatherRealtime.sky,          // 하늘상태
-            let pty = weatherRealtime.pty,          // 강수형태
-            let rn1 = weatherRealtime.rn1,          // 강수량
-            let reh = weatherRealtime.reh,          // 습도
-            let vec = weatherRealtime.vec,          // 풍향
-            let wsd = weatherRealtime.wsd else {    // 풍속
-                return
-        }
         var tmx = "", tmn = "", pop = "", s06 = ""
         for weatherLocal in weatherLocals {
             if let tmxValue = weatherLocal.tmx, tmx.isEmpty {
@@ -149,6 +141,13 @@ class WeatherInfoCell: UITableViewCell {
                 s06 = s06Value
             }
         }
+        let t1h = weatherRealtime.t1h ?? "-°"       // 현재온도
+        let sky = weatherRealtime.sky ?? "정보없음"   // 하늘상태
+        let pty = weatherRealtime.pty ?? "없음"      // 강수형태
+        let rn1 = weatherRealtime.rn1 ?? "-"        // 강수량
+        let reh = weatherRealtime.reh ?? "-%"       // 습도
+        let vec = weatherRealtime.vec ?? "-"        // 풍향
+        let wsd = weatherRealtime.wsd ?? "-m/s"     // 풍속
         setSkyImageView(sky, pty: pty)
         setVecImageView(vec)
         switch pty {
@@ -205,6 +204,8 @@ class WeatherInfoCell: UITableViewCell {
                 }
             } else if sky == "흐림" {
                 skyStatusImageView.image = UIImage(named: "cloud")
+            } else if sky == "정보없음" {
+                skyStatusImageView.image = nil
             }
         } else {
             if pty == "비" || pty == "비/눈" {
@@ -233,6 +234,8 @@ class WeatherInfoCell: UITableViewCell {
             vecImageView.transform = CGAffineTransform(rotationAngle: CGFloat((90 * Double.pi) / 180))
         } else if vec == "서북" {
             vecImageView.transform = CGAffineTransform(rotationAngle: CGFloat((135 * Double.pi) / 180))
+        } else {
+            vecImageView.image = nil
         }
     }
     /// 이미지, 텍스트 색상을 설정한다
