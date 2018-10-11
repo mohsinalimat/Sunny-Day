@@ -13,7 +13,7 @@ class Weather {
     // MARK: -
     /// 날씨 타입: 초단기실황, 동네예보
     enum WeatherType {
-        case realtime, local
+        case realtime, local, sky
     }
     /// 초단기실황 카테고리
     private enum RealtimeCategoryType: String {
@@ -46,7 +46,7 @@ class Weather {
             minuteString = "0" + "\(minute)"
         }
         switch type {
-        case .realtime:
+        case .realtime, .sky:
             // 초단기실황, API 제공 시간 매시간 40분,
             // ex) base_time = 1200은 실제 1240분부터 사용가능, 분은 중요하지 않음.
             if minute < 40 {
@@ -159,11 +159,39 @@ class Weather {
                 return nil
         }
         switch type {
+        case .sky:
+            return extractSkyData(item)
         case .realtime:
             return extractRealtimeData(item)
         case .local:
             return extractLocalData(item)
         }
+    }
+    /// 초단기 예보 데이터에서 sky 값을 추출하여 변환후 문자열을 반환한다
+    private func extractSkyData(_ data: Any) -> String? {
+        guard let items = data as? [[String: Any]] else {
+            return nil
+        }
+        for item in items {
+            if let category = item["category"] as? String,
+                category != "SKY" {
+                continue
+            }
+            guard let skyValue = item["fcstValue"] as? Int else {
+                return nil
+            }
+            // 하늘상태
+            if skyValue == 1 {
+                return "맑음"
+            } else if skyValue == 2 {
+                return "구름조금"
+            } else if skyValue == 3 {
+                return "구름많음"
+            } else if skyValue == 4 {
+                return "흐림"
+            }
+        }
+        return nil
     }
     /// 초단기 실황 데이터를 추출하여 변환후 반환한다
     private func extractRealtimeData(_ data: Any) -> WeatherRealtimeData? {

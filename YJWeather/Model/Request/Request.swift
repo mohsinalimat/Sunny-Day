@@ -10,16 +10,17 @@ import Foundation
 import Alamofire
 
 enum URIType: String {
-    case forecastGrib = "ForecastGrib"  // 초단기실황
-    case forecastSpaceData = "ForecastSpaceData"  // 동네예보
-    case getMsrstnAcctoRltmMesureDnsty  // 측정소별 실시간 측정정보
-    case getNearbyMsrstnList    // 근접측정소 목록
+    case forecastGrib = "ForecastGrib"              // 초단기실황
+    case forecastTimeData = "ForecastTimeData"        // 초단기예보
+    case forecastSpaceData = "ForecastSpaceData"    // 동네예보
+    case getMsrstnAcctoRltmMesureDnsty              // 측정소별 실시간 측정정보
+    case getNearbyMsrstnList                        // 근접측정소 목록
 }
 
 class Request: RequestProtocol {
     // MARK: - Properties
     // MARK: -
-    private let serviceKey = "서비스키"
+    private let serviceKey = "G0YMvvFG8%2FPUuXzmKHgKxTWhv1fkmYJHyE2chPMURldB%2Fml97PU1Ff%2BL4QJE4CgxPPyIaPoLwiXrtYJvMa2vAw%3D%3D"
     private let weather = Weather()
     private let airPollution = AirPollution()
     private let coordinates = Coordinates()
@@ -35,7 +36,7 @@ class Request: RequestProtocol {
     func createURL(_ type: URIType) -> URL? {
         var urlString: String
         switch type {
-        case .forecastGrib, .forecastSpaceData:
+        case .forecastGrib, .forecastSpaceData, .forecastTimeData:
             urlString = "http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/"
         case .getMsrstnAcctoRltmMesureDnsty:
             urlString = "http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/"
@@ -124,6 +125,24 @@ class Request: RequestProtocol {
         let dispatchGroup = DispatchGroup()
         var requestError: RequestError?
         dispatchGroup.enter()
+        requestForecastTimeData(latitude: latitude, longitude: longitude) { (isSuccess, data, error) in
+            if isSuccess, let sky = data as? String {
+                dispatchGroup.enter()
+                self.requestForecastGrib(latitude: latitude, longitude: longitude) { (isSuccess, data, error) in
+                    if isSuccess, let data = data as? WeatherRealtimeData {
+                        weatherRealtime = data
+                        weatherRealtime.sky = sky
+                    } else {
+                        requestError = error
+                    }
+                    dispatchGroup.leave()
+                }
+            } else {
+                requestError = error
+            }
+            dispatchGroup.leave()
+        }
+        dispatchGroup.enter()
         requestForecastGrib(latitude: latitude, longitude: longitude) { (isSuccess, data, error) in
             if isSuccess, let data = data as? WeatherRealtimeData {
                 weatherRealtime = data
@@ -188,6 +207,29 @@ class Request: RequestProtocol {
         ]
         Alamofire.request(url, method: .get, parameters: parameters, encoding: URLEncoding.default).responseJSON { (response) in
             if let data = self.weather.extractData(.realtime, data: response.result.value) {
+                completion(true, data, nil)
+            } else {
+                completion(false, nil, RequestError.requestFailed)
+            }
+        }
+    }
+    /// 초단기예보를 호출하는 메서드
+    private func requestForecastTimeData(latitude: Double, longitude: Double, completion: @escaping requestCompletionHandler) {
+        guard let url = createURL(.forecastTimeData) else {
+            return
+        }
+        let (nx, ny) = coordinates.convertToGrid(latitude: latitude, longitude: longitude)
+        let (baseDate, baseTime) = weather.getBaseDateTime(.realtime)
+        let parameters: Parameters = [
+            "base_date": baseDate,
+            "base_time": baseTime,
+            "nx": nx,
+            "ny": ny,
+            "_type": "json",
+            "numOfRows": 30
+        ]
+        Alamofire.request(url, method: .get, parameters: parameters, encoding: URLEncoding.default).responseJSON { (response) in
+            if let data = self.weather.extractData(.sky, data: response.result.value) {
                 completion(true, data, nil)
             } else {
                 completion(false, nil, RequestError.requestFailed)
